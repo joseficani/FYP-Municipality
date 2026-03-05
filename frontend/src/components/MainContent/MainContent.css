@@ -1,0 +1,1207 @@
+.hero{
+
+  position: relative;
+
+  width: 100%;
+
+  height: 640px;              /* close to screenshot */
+
+  overflow: hidden;
+
+}
+ 
+/* Background */
+
+.heroBg{
+
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+}
+ 
+/* Soft overlay */
+
+.heroShade{
+
+  position: absolute;
+
+  inset: 0;
+
+  background: linear-gradient(
+
+    180deg,
+
+    rgba(0,0,0,0.20) 0%,
+
+    rgba(0,0,0,0.08) 40%,
+
+    rgba(255,255,255,0.0) 100%
+
+  );
+
+}
+ 
+/* Centered glass box */
+
+.heroCenter{
+
+  position: absolute;
+
+  inset: 0;
+
+  display: grid;
+
+  place-items: center;
+
+  padding: 90px 18px 120px; /* top space for header + bottom for search */
+
+}
+ 
+.heroGlass{
+
+  width: min(760px, 92vw);
+
+  height: 220px;
+
+  border-radius: 18px;
+
+  border: 1px solid rgba(255,255,255,0.45);
+
+  background: rgba(255,255,255,0.22);
+
+  backdrop-filter: blur(14px);
+
+  box-shadow: 0 18px 50px rgba(0,0,0,0.18);
+
+  display: grid;
+
+  place-items: center;
+
+  text-align: center;
+
+  padding: 18px;
+
+}
+ 
+.heroTitle{
+
+  margin: 0 0 14px;
+
+  font-size: 22px;
+
+  font-weight: 900;
+
+  color: rgba(58, 80, 46, 0.95); /* olive like screenshot text */
+
+  text-shadow: 0 1px 0 rgba(255,255,255,0.35);
+
+}
+ 
+.heroBtn{
+
+  height: 34px;
+
+  padding: 0 16px;
+
+  border-radius: 999px;
+
+  border: 1px solid rgba(255,255,255,0.55);
+
+  background: rgba(255,255,255,0.20);
+
+  color: rgba(45,45,45,0.92);
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+}
+ 
+/* Bottom search bar */
+
+.heroSearchWrap{
+
+  position: absolute;
+
+  left: 0;
+
+  right: 0;
+
+  bottom: 30px; /* like screenshot */
+
+  display: flex;
+
+  justify-content: center;
+
+  padding: 0 18px;
+
+}
+ 
+.heroSearchPill{
+
+  width: min(760px, 94vw);
+
+  height: 58px;
+
+  border-radius: 18px;
+
+  background: rgba(11, 77, 51, 0.92); /* dark green */
+
+  box-shadow: 0 14px 30px rgba(0,0,0,0.22);
+
+  display: flex;
+
+  align-items: center;
+
+  padding: 0 14px;
+
+  gap: 10px;
+
+}
+ 
+.heroField{
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  min-width: 180px;
+
+}
+ 
+.heroFieldGrow{
+
+  flex: 1;
+
+  min-width: 260px;
+
+}
+ 
+.heroIcon{
+
+  opacity: 0.9;
+
+  color: #fff;
+
+  font-size: 14px;
+
+}
+ 
+.heroInput{
+
+  width: 100%;
+
+  height: 40px;
+
+  border: none;
+
+  outline: none;
+
+  border-radius: 12px;
+
+  padding: 0 12px;
+
+  background: rgba(255,255,255,0.22);
+
+  color: #fff;
+
+  font-weight: 700;
+
+  font-size: 13px;
+
+}
+ 
+.heroInput::placeholder{
+
+  color: rgba(255,255,255,0.75);
+
+  font-weight: 700;
+
+}
+ 
+.heroDivider{
+
+  width: 1px;
+
+  height: 34px;
+
+  background: rgba(255,255,255,0.22);
+
+}
+ 
+.heroSelect{
+
+  height: 40px;
+
+  border-radius: 12px;
+
+  border: none;
+
+  background: rgba(255,255,255,0.22);
+
+  color: rgba(255,255,255,0.92);
+
+  font-weight: 800;
+
+  font-size: 13px;
+
+  padding: 0 14px;
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  white-space: nowrap;
+
+}
+ 
+.caret{
+
+  opacity: 0.9;
+
+  font-size: 12px;
+
+}
+ 
+/* Floating AI button */
+
+.aiFloat{
+
+  position: absolute;
+
+  right: 18px;
+
+  bottom: 18px;
+
+  width: 64px;
+
+  height: 64px;
+
+  border-radius: 18px;
+
+  border: 2px solid rgba(5, 40, 26, 0.55);
+
+  background: rgba(11, 77, 51, 0.98);
+
+  box-shadow: 0 14px 30px rgba(0,0,0,0.22);
+
+  cursor: pointer;
+
+  display: grid;
+
+  place-items: center;
+
+  gap: 2px;
+
+}
+ 
+.aiBadge{
+
+  font-size: 12px;
+
+  font-weight: 900;
+
+  color: #fff;
+
+  line-height: 1;
+
+}
+ 
+.aiChat{
+
+  font-size: 18px;
+
+  line-height: 1;
+
+}
+ 
+/* Responsive */
+
+@media (max-width: 720px){
+
+  .hero{ height: 560px; }
+
+  .heroGlass{ height: 200px; }
+
+  .heroSearchPill{
+
+    height: auto;
+
+    padding: 12px;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+  }
+
+  .heroDivider{ display: none; }
+
+  .heroSelect{ width: 100%; justify-content: space-between; }
+
+}
+ 
+/* =========================
+   SERVICES SECTION (matches your screenshot)
+   ========================= */
+
+.svcSection{
+  background: #f3f2ef;          /* soft warm gray like image */
+  padding: 70px 0 90px;
+}
+
+.svcContainer{
+  width: min(1100px, 90%);
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Titles */
+.svcSmallTitle{
+  font-size: 14px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #7a7a68;
+  margin-bottom: 12px;
+}
+
+.svcMainTitle{
+  font-size: clamp(28px, 3.2vw, 44px);
+  line-height: 1.15;
+  font-weight: 700;
+  color: #3f3e2c;               /* olive-ish like screenshot */
+  margin: 0 0 45px;
+}
+
+/* Grid layout */
+.svcGrid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 36px 48px;               /* vertical / horizontal */
+  align-items: stretch;
+}
+
+/* Card */
+.svcCard{
+  position: relative;
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 34px 26px 58px;      /* extra bottom for circle arrow */
+  box-shadow: 0 18px 38px rgba(0,0,0,0.10);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.svcCard:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 26px 55px rgba(0,0,0,0.14);
+}
+
+/* Top icon (in screenshot it's an outlined icon; emoji will still work) */
+.svcTopIcon{
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  color: #3f3e2c;
+  opacity: 0.95;
+}
+
+/* Card title + text */
+.svcCardTitle{
+  margin: 0 0 12px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #3f3e2c;
+}
+
+.svcCardText{
+  margin: 0 auto;
+  max-width: 320px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #5e5d4c;
+}
+
+/* Circle arrow button */
+.svcArrow{
+  position: absolute;
+  left: 50%;
+  bottom: -22px;
+  transform: translateX(-50%);
+  width: 54px;
+  height: 54px;
+  border-radius: 999px;
+
+  border: none;
+  background: #f5f4f1;
+  color: #3f3e2c;
+
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+
+  box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.svcArrow:hover{
+  background: #eceae5;
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow: 0 16px 32px rgba(0,0,0,0.18);
+}
+
+.svcArrow:active{
+  transform: translateX(-50%) translateY(0px);
+}
+
+/* Keyboard focus (important) */
+.svcArrow:focus-visible{
+  outline: 3px solid rgba(63,62,44,0.35);
+  outline-offset: 3px;
+}
+
+/* Responsive */
+@media (max-width: 860px){
+  .svcGrid{
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .svcCardText{
+    max-width: 420px;
+  }
+}
+
+/* EVENTS & NEWS SECTION */
+/* =========================================================
+   EVENTS & NEWS (tabs + cards grid + post form)
+   Matches both screenshots (same widths/heights + spacing)
+   ========================================================= */
+
+:root{
+  --bg: #f3f2ef;
+  --text: #3f3e2c;
+  --muted: #7a7a68;
+  --line: rgba(63,62,44,0.35);
+  --card: #ffffff;
+  --shadow: 0 18px 38px rgba(0,0,0,0.10);
+  --shadowHover: 0 26px 55px rgba(0,0,0,0.14);
+  --green: #0f5a3b;
+}
+
+.enSection{
+  background: var(--bg);
+  padding: 70px 0 80px;
+}
+
+.enContainer{
+  width: min(1100px, 90%);
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Titles */
+.enSmallTitle{
+  font-size: 14px;
+  letter-spacing: .6px;
+  color: var(--muted);
+  margin: 0 0 6px;
+}
+
+.enMainTitle{
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 14px;
+}
+
+/* Tabs row with top/bottom lines like screenshot */
+.enTabsRow{
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Events | News | Post */
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  margin: 0 auto 28px;
+}
+
+.enTabsRow::before,
+.enTabsRow::after{
+  content:"";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--line);
+}
+
+.enTabsRow::before{ top: 0; }
+.enTabsRow::after{ bottom: 0; }
+
+/* Tab buttons */
+.enTab{
+  justify-self: center;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 10px 18px;
+  border-radius: 999px;
+  transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+
+.enTab:hover{
+  background: rgba(63,62,44,0.08);
+  transform: translateY(-1px);
+}
+
+.enTabActive{
+  background: var(--green);
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.14);
+}
+
+/* -------------------------
+   EVENTS/NEWS CARDS GRID
+   ------------------------- */
+
+.enGrid{
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(12, 1fr);
+  /* EXACT layout like screenshot */
+  grid-template-areas:
+    "c1 c1 c1 c1 c1 c1  c2 c2 c2 c2 c2 c2"
+    "c3 c3 c3 c3  c4 c4 c4 c4 c4 c4  c5 c5";
+  align-items: stretch;
+  margin: 0 auto 26px;
+}
+
+/* Base card */
+.enCard{
+  background: var(--card);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  font-weight: 600;
+  transition: transform .25s ease, box-shadow .25s ease;
+  /* Make ALL cards consistent + similar proportions */
+  min-height: 140px;
+}
+
+.enCard:hover{
+  transform: translateY(-5px);
+  box-shadow: var(--shadowHover);
+}
+
+/* Force the same height “feel” as screenshot */
+.enCardBig{ min-height: 160px; }
+.enCardSmall{ min-height: 150px; }
+.enCardWide{ min-height: 150px; }
+
+/* Place areas (based on your JSX order) */
+.enGrid .enCard:nth-child(1){ grid-area: c1; }
+.enGrid .enCard:nth-child(2){ grid-area: c2; }
+.enGrid .enCard:nth-child(3){ grid-area: c3; }
+.enGrid .enCard:nth-child(4){ grid-area: c4; }
+.enGrid .enCard:nth-child(5){ grid-area: c5; }
+
+/* See more button */
+.enMoreBtn{
+  border: none;
+  background: #ffffff;
+  color: var(--text);
+  font-weight: 700;
+  padding: 12px 26px;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.enMoreBtn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.16);
+  background: #fafafa;
+}
+
+/* -------------------------
+   POST AN EVENT (FORM)
+   ------------------------- */
+
+.postWrap{
+  width: min(760px, 92%);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.postHeadline{
+  color: var(--text);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.5;
+  margin: 16px 0 26px;
+}
+
+/* Form container (centered like screenshot) */
+.postForm{
+  width: min(560px, 100%);
+  margin: 0 auto;
+  display: grid;
+  gap: 16px;
+}
+
+/* Inputs */
+.postInput,
+.postTextarea{
+  width: 100%;
+  background: #fff;
+  border: 1px solid rgba(63,62,44,0.10);
+  border-radius: 14px;
+  padding: 14px 18px;
+  font-size: 15px;
+  color: var(--text);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.10);
+  outline: none;
+}
+
+.postTextarea{
+  resize: none;
+  min-height: 84px;
+}
+
+/* Date/Time split “pills” */
+.postSplit{
+  width: 100%;
+  background: #fff;
+  border: 1px solid rgba(63,62,44,0.10);
+  border-radius: 14px;
+  box-shadow: 0 12px 26px rgba(0,0,0,0.10);
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  overflow: hidden;
+}
+
+.postDivider{
+  background: rgba(63,62,44,0.35);
+}
+
+/* Each half */
+.postSplitCell{
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+/* Left label + right value like screenshot */
+.postLabel{
+  color: var(--text);
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.postValue{
+  color: rgba(63,62,44,0.55);
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.postCaret{
+  margin-left: 6px;
+  color: rgba(63,62,44,0.65);
+}
+
+/* Buttons (same width, same height, same green) */
+.postBtn{
+  width: 100%;
+  height: 44px;                 /* same height for both */
+  border: none;
+  border-radius: 12px;
+  background: var(--green);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+
+.postBtn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.16);
+  filter: brightness(1.02);
+}
+
+/* Focus */
+.enTab:focus-visible,
+.enMoreBtn:focus-visible,
+.postInput:focus-visible,
+.postTextarea:focus-visible,
+.postBtn:focus-visible{
+  outline: 3px solid rgba(63,62,44,0.35);
+  outline-offset: 3px;
+}
+
+/* -------------------------
+   Responsive
+   ------------------------- */
+@media (max-width: 900px){
+  .enTabsRow{
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .enGrid{
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "c1"
+      "c2"
+      "c3"
+      "c4"
+      "c5";
+  }
+
+  .enCardBig,
+  .enCardSmall,
+  .enCardWide{
+    min-height: 150px;
+  }
+}
+/* =========================
+   OUR TEAM (matches screenshot)
+   ========================= */
+
+.teamSection{
+  background: #f3f2ef; 
+  padding: 70px 0 80px;
+}
+
+.teamContainer{
+  width: min(1100px, 90%);
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Titles */
+.teamSmallTitle{
+  font-size: 14px;
+  letter-spacing: .6px;
+  color: #7a7a68;
+  margin: 0 0 6px;
+}
+
+.teamMainTitle{
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 700;
+  color: #3f3e2c;
+  margin: 0 0 28px;
+}
+
+/* Card wrapper */
+.teamCard{
+  position: relative;
+  /* background: #ffffff; */
+  border-radius: 18px;
+  box-shadow: 0 18px 38px rgba(0,0,0,0.10);
+  padding: 34px 56px; /* space for arrows */
+}
+
+/* Content layout */
+.teamContent{
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr; /* text wider like screenshot */
+  gap: 28px;
+  align-items: center;
+  text-align: left;
+  margin-left: 80px;
+}
+
+/* Left side */
+.teamName{
+  margin: 0 0 4px;
+  font-size: 34px;
+  font-weight: 500; /* screenshot feels semi-light */
+  color: #5a5a3d;
+}
+
+.teamRole{
+  margin: 0 0 16px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #5a5a3d;
+}
+
+.teamBio{
+  margin: 0 0 22px;
+  max-width: 560px;
+  color: #6a6957;
+  font-size: 14.5px;
+  line-height: 1.7;
+}
+
+/* Contact rows */
+.teamContact{
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.teamContactRow{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #5a5a3d;
+  font-weight: 600;
+}
+
+.teamIcon{
+  font-size: 15px;
+  opacity: .9;
+}
+
+.teamContactText{
+  font-size: 14px;
+  color: #5a5a3d;
+}
+
+/* Right side (image) */
+.teamRight{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.teamImg{
+  width: min(320px, 100%);
+  height: 320px;              /* keep same like screenshot */
+  object-fit: contain;        /* keeps cutout look */
+  display: block;
+}
+
+/* Arrows (left/right) */
+.teamArrow{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;    /* screenshot arrows look minimal */
+  color: #5a5a3d;
+  font-size: 22px;
+  cursor: pointer;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.teamArrow:hover{
+  background: rgba(63,62,44,0.08);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.teamArrowLeft{ left: 14px; }
+.teamArrowRight{ right: 14px; }
+
+.teamArrow:focus-visible{
+  outline: 3px solid rgba(63,62,44,0.35);
+  outline-offset: 3px;
+}
+
+/* Responsive */
+@media (max-width: 900px){
+  .teamCard{
+    padding: 26px 18px 18px;
+  }
+
+  .teamContent{
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .teamBio{
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .teamContactRow{
+    justify-content: center;
+  }
+
+  .teamArrowLeft{ left: 8px; }
+  .teamArrowRight{ right: 8px; }
+
+  .teamImg{
+    height: 260px;
+  }
+}
+
+/* CONTACT SECTION */
+/* =========================
+   CONTACT (exact layout like image)
+   ========================= */
+
+*{ box-sizing: border-box; }
+
+.contactSection{
+  background: #f3f2ef;
+  padding: 60px 0 90px;
+}
+
+.contactContainer{
+  width: min(1100px, 92%);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contactSmallTitle{
+  font-size: 14px;
+  letter-spacing: .6px;
+  color: #7a7a68;
+  margin: 0 0 6px;
+}
+
+.contactMainTitle{
+  font-size: 34px;
+  font-weight: 800;
+  color: #3f3e2c;
+  margin: 0 0 30px;
+}
+
+/* THE MAIN TRICK: make a stage, form centered, green card absolute overlay */
+.contactGrid{
+  position: relative;
+  width: 900px;              /* fixed “look” like screenshot */
+  max-width: 100%;
+  margin: 0 auto;
+  padding-right: 240px;      /* reserve space so the green card doesn't push layout */
+}
+
+/* LEFT FORM CARD */
+.contactFormCard{
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.14);
+  padding: 26px 26px 22px;
+  text-align: left;
+
+  width: 640px;             /* same feel as screenshot */
+  max-width: 100%;
+  min-height: 460px;
+}
+
+.contactCardTitle{
+  margin: 0 0 4px;
+  font-size: 20px;
+  font-weight: 800;
+  color: #5a5a3d;
+}
+
+.contactCardSub{
+  margin: 0 0 18px;
+  color: #6a6957;
+  font-size: 14px;
+}
+
+/* Form grid */
+.contactForm{
+  display: grid;
+  gap: 14px;
+}
+
+.contactRow2{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.contactField{
+  display: grid;
+  gap: 8px;
+}
+
+.contactLabel{
+  font-size: 13px;
+  font-weight: 700;
+  color: #5a5a3d;
+}
+
+/* Inputs like screenshot (rounded + soft shadow) */
+.contactInput,
+.contactPhoneInput,
+.contactTextarea{
+  width: 100%;
+  border: none;
+  outline: none;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 14px;
+  color: #3f3e2c;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+}
+
+.contactTextarea{
+  min-height: 120px;
+  resize: none;
+  border-radius: 14px;
+}
+
+/* Phone prefix box */
+.contactPhoneWrap{
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+  background: #fff;
+}
+
+.contactPrefix{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #5a5a3d;
+  background: #f7f6f2;
+  border-right: 1px solid rgba(63,62,44,0.18);
+}
+
+.contactPhoneInput{
+  box-shadow: none;   /* already on wrapper */
+  border-radius: 0;
+}
+
+/* Button bottom-right like screenshot */
+.contactBtnRow{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+.contactBtn{
+  background: #0f5a3b;
+  color: #fff;
+  border: none;
+  height: 38px;
+  padding: 0 18px;
+  border-radius: 999px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.14);
+}
+
+/* RIGHT GREEN CARD (overlapping) */
+.contactInfoCard{
+  position: absolute;
+  right: 0;
+  top: 85px;                 /* vertical placement like screenshot */
+
+  width: 280px;
+  padding: 22px 18px;
+  border-radius: 16px;
+
+  background: #0f5a3b;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+
+  text-align: left;
+  color: #fff;
+}
+
+.contactInfoTitle{
+  margin: 0 0 14px;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+/* Each info row as a darker pill */
+.contactInfoList{
+  display: grid;
+  gap: 12px;
+}
+
+.contactInfoItem{
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.10);
+}
+
+.contactInfoIcon{
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.18);
+  font-size: 18px;
+}
+
+.contactInfoLabel{
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+  opacity: 0.95;
+}
+
+.contactInfoValue{
+  margin: 2px 0 0;
+  font-size: 13px;
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+/* Mobile: stack, remove overlap */
+@media (max-width: 900px){
+  .contactGrid{
+    padding-right: 0;
+    width: 100%;
+  }
+
+  .contactFormCard{
+    width: 100%;
+  }
+
+  .contactInfoCard{
+    position: static;
+    width: min(520px, 100%);
+    margin: 18px auto 0;
+  }
+
+  .contactRow2{
+    grid-template-columns: 1fr;
+  }
+
+  .contactBtnRow{
+    justify-content: center;
+  }
+}

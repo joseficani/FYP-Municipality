@@ -1,0 +1,260 @@
+/* Header container (you can merge with your existing navbar styles) */
+
+.navHeader{
+
+  width: 100%;
+
+  position: absolute;
+
+  top: 0;
+
+  left: 0;
+
+  z-index: 50;
+
+}
+ 
+.navInner{
+
+  max-width: 1240px;
+
+  margin: 0 auto;
+
+  padding: 18px 20px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+}
+ 
+/* Logo */
+
+.navBrand{
+
+  font-family: "IBM Plex Sans", sans-serif;
+
+  font-weight: 900;
+
+  font-size: 20px;
+
+  color: #fff;
+
+}
+ 
+/* Menu */
+
+.navMenu{
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+ 
+  /* pill container like your design */
+
+  padding: 10px 14px;
+
+  border-radius: 999px;
+ 
+  background: rgba(255,255,255,0.12);
+
+  border: 1px solid rgba(255,255,255,0.35);
+
+  backdrop-filter: blur(10px);
+
+}
+ 
+.navLink{
+
+  font-family: "Imprima", sans-serif;
+
+  font-size: 14px;
+
+  color: rgba(255,255,255,0.95);
+
+  text-decoration: none;
+
+  padding: 6px 10px;
+
+  border-radius: 999px;
+
+}
+ 
+.navLink:hover{
+
+  background: rgba(255,255,255,0.10);
+
+}
+ 
+/* Dropdown wrapper */
+
+.navDropdown{
+
+  position: relative;
+
+}
+ 
+/* Dropdown button (Services) */
+
+.navDropBtn{
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+ 
+  border: none;
+
+  cursor: pointer;
+ 
+  padding: 10px 16px;
+
+  border-radius: 18px;
+ 
+  background: rgba(255,255,255,0.16);
+
+  border: 1px solid rgba(255,255,255,0.35);
+ 
+  backdrop-filter: blur(10px);
+ 
+  font-family: "Imprima", sans-serif;
+
+  font-size: 16px;
+
+  color: #fff;
+
+}
+ 
+.navDropBtn.active{
+
+  background: rgba(255,255,255,0.20);
+
+}
+ 
+.navCaret{
+
+  font-size: 18px;
+
+  transition: transform 0.15s ease;
+
+  opacity: 0.95;
+
+}
+ 
+.navCaret.rot{
+
+  transform: rotate(180deg);
+
+}
+ 
+/* Dropdown menu (glass box like screenshot) */
+
+.navDropMenu{
+
+  position: absolute;
+
+  top: calc(100% + 10px);
+
+  left: 0;
+ 
+  width: 260px;
+
+  padding: 16px 14px;
+ 
+  border-radius: 24px;
+ 
+  background: rgba(255,255,255,0.18);
+
+  border: 1px solid rgba(255,255,255,0.35);
+
+  backdrop-filter: blur(14px);
+ 
+  box-shadow: 0 18px 30px rgba(0,0,0,0.18);
+
+}
+ 
+/* Items */
+
+.navDropItem{
+
+  display: block;
+
+  text-decoration: none;
+ 
+  font-family: "Imprima", sans-serif;
+
+  font-size: 18px;
+
+  line-height: 1.6;
+ 
+  color: rgba(255,255,255,0.95);
+ 
+  padding: 2px 6px;
+
+  border-radius: 10px;
+
+}
+ 
+.navDropItem:hover{
+
+  background: rgba(255,255,255,0.12);
+
+}
+ 
+/* Right icons */
+
+.navRight{
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+}
+ 
+.navIconBtn{
+
+  width: 34px;
+
+  height: 34px;
+
+  border-radius: 999px;
+
+  border: 1px solid rgba(255,255,255,0.35);
+
+  background: rgba(255,255,255,0.12);
+
+  backdrop-filter: blur(10px);
+
+  color: #fff;
+
+  cursor: pointer;
+
+}
+ 
+/* Mobile (optional) */
+
+@media (max-width: 900px){
+
+  .navMenu{
+
+    gap: 10px;
+
+    padding: 8px 10px;
+
+  }
+
+  .navDropMenu{
+
+    width: 230px;
+
+  }
+
+}
+ 
