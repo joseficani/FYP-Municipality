@@ -1,0 +1,223 @@
+@import url("https://fonts.googleapis.com/css2?family=Imprima&family=IBM+Plex+Sans:wght@700&display=swap");
+
+:root {
+  --ai-title-font: "IBM Plex Sans", sans-serif;
+  --ai-body-font: "Imprima", sans-serif;
+
+  --ai-bg: #f6f6f3;
+  --ai-text: #5a5820;
+  --ai-soft-text: #6f8f72;
+  --ai-green: #14532d;
+  --ai-light-border: #cfcbbd;
+  --ai-bubble: #ffffff;
+  --ai-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.aiPage {
+  min-height: 100vh;
+  background: var(--ai-bg);
+  padding: 28px 20px 40px;
+}
+
+.aiContainer {
+  width: min(620px, 100%);
+  margin: 0 auto;
+  position: relative;
+}
+
+.aiBackBtn {
+  border: none;
+  background: transparent;
+  color: var(--ai-text);
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.aiHeader {
+  text-align: center;
+  margin-bottom: 110px;
+}
+
+.aiHeaderIcon {
+  color: var(--ai-text);
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+}
+
+.aiTitle {
+  margin: 0;
+  font-family: var(--ai-title-font);
+  font-size: 24px;
+  color: var(--ai-text);
+}
+
+.aiChatArea {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+
+.aiMessageGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.meGroup {
+  align-items: flex-start;
+}
+
+.botGroup {
+  align-items: center;
+}
+
+.aiSender {
+  font-family: var(--ai-title-font);
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.meSender,
+.botSender {
+  color: #6d9a73;
+}
+
+.aiBubble {
+  background: var(--ai-bubble);
+  box-shadow: var(--ai-shadow);
+  border: 1px solid #ddd8cb;
+  font-family: var(--ai-body-font);
+  color: var(--ai-text);
+}
+
+.meBubble {
+  min-width: 250px;
+  max-width: 320px;
+  padding: 12px 18px;
+  border-radius: 16px;
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.botBubble {
+  width: min(100%, 560px);
+  padding: 16px 22px;
+  border-radius: 16px;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.botBubble p {
+  margin: 0 0 8px;
+}
+
+.botBubble ol {
+  margin: 0 0 8px 20px;
+  padding: 0;
+}
+
+.botBubble li {
+  margin-bottom: 2px;
+}
+
+.aiSuggestions {
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+.aiSuggestionsTitle {
+  margin: 0 0 10px;
+  font-family: var(--ai-title-font);
+  font-size: 16px;
+  color: #6c9a72;
+}
+
+.aiSuggestionList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.aiSuggestionBtn {
+  border: none;
+  background: var(--ai-green);
+  color: #ffffff;
+  font-family: var(--ai-body-font);
+  font-size: 15px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.aiInputWrap {
+  position: relative;
+  margin-top: 10px;
+}
+
+.aiInput {
+  width: 100%;
+  height: 56px;
+  border-radius: 16px;
+  border: 1.5px solid #a8a17b;
+  background: transparent;
+  padding: 0 62px 0 18px;
+  font-family: var(--ai-body-font);
+  font-size: 18px;
+  color: var(--ai-text);
+  outline: none;
+}
+
+.aiInput::placeholder {
+  color: #8f8a6d;
+}
+
+.aiSendBtn {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: #8f8a6d;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 700px) {
+  .aiHeader {
+    margin-bottom: 70px;
+  }
+
+  .aiTitle {
+    font-size: 22px;
+  }
+
+  .meBubble {
+    min-width: unset;
+    max-width: 90%;
+  }
+
+  .botBubble {
+    width: 100%;
+  }
+
+  .aiSuggestionList {
+    flex-direction: column;
+  }
+
+  .aiSuggestionBtn {
+    width: 100%;
+    text-align: left;
+  }
+}

@@ -1,12 +1,12 @@
 import Header from "../components/Header/Header";
-import MainContent from "../components/MainContent/MainContent";
 import Footer from "../components/Footer/Footer";
+import NewsListPage from "../components/News/NewsListPage";
 
-export default function AfterLoginPage() {
+export default function NewsPage() {
   return (
     <div className="appShell">
-      <Header />
-      <MainContent />
+      <Header solid />
+      <NewsListPage />
       <Footer />
     </div>
   );

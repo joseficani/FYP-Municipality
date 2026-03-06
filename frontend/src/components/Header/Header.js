@@ -1,104 +1,118 @@
 import "./Header.css";
-
 import { useEffect, useRef, useState } from "react";
- 
-export default function Navbar() {
+import { Link } from "react-router-dom";
+import { Languages, Bell, User } from "lucide-react";
 
+export default function Header({ solid = false }) {
   const [servicesOpen, setServicesOpen] = useState(false);
-
   const dropdownRef = useRef(null);
- 
-  // close dropdown when clicking outside
 
   useEffect(() => {
-
     const onDown = (e) => {
-
       if (!dropdownRef.current) return;
-
       if (!dropdownRef.current.contains(e.target)) {
-
         setServicesOpen(false);
-
       }
-
     };
 
     document.addEventListener("mousedown", onDown);
-
     return () => document.removeEventListener("mousedown", onDown);
-
   }, []);
- 
+
+  const closeDropdown = () => setServicesOpen(false);
+
   return (
-<header className="navHeader">
-<div className="navInner">
+    <header className={`navHeader ${solid ? "navHeaderSolid" : ""}`}>
+      <div className="navInner">
+        {/* LOGO */}
+        <div className="navLogo">
+          <Link to="/" className="navBrandLink">
+            <span className="navBrand">MuniciPal</span>
+          </Link>
+        </div>
 
-        {/* LEFT LOGO */}
-<div className="navLogo">
-<span className="navBrand">MuniciPal</span>
-</div>
- 
-        {/* CENTER MENU */}
-<nav className="navMenu">
-<a className="navLink" href="#home">Home</a>
- 
+        {/* MENU */}
+        <nav className="navMenu">
+          <Link className="navLink" to="/">
+            Home
+          </Link>
+
           {/* SERVICES DROPDOWN */}
-<div className="navDropdown" ref={dropdownRef}>
-<button
-
+          <div className="navDropdown" ref={dropdownRef}>
+            <button
               type="button"
-
               className={`navDropBtn ${servicesOpen ? "active" : ""}`}
-
               onClick={() => setServicesOpen((v) => !v)}
+            >
+              <span>Services</span>
+              <span className={`navCaret ${servicesOpen ? "rot" : ""}`}>▾</span>
+            </button>
 
-              aria-expanded={servicesOpen}
-
-              aria-haspopup="menu"
->
-<span>Services</span>
-<span className={`navCaret ${servicesOpen ? "rot" : ""}`}>▾</span>
-</button>
- 
             {servicesOpen && (
-<div className="navDropMenu" role="menu">
-<a className="navDropItem" href="#complaints" onClick={() => setServicesOpen(false)}>
-
+              <div className="navDropMenu">
+                <Link
+                  className="navDropItem"
+                  to="/#complaints"
+                  onClick={closeDropdown}
+                >
                   Complaints
-</a>
-<a className="navDropItem" href="#taxes" onClick={() => setServicesOpen(false)}>
+                </Link>
 
+                <Link
+                  className="navDropItem"
+                  to="/#taxes"
+                  onClick={closeDropdown}
+                >
                   Taxes &amp; Fees
-</a>
-<a className="navDropItem" href="#licensing" onClick={() => setServicesOpen(false)}>
+                </Link>
 
+                <Link
+                  className="navDropItem"
+                  to="/#licensing"
+                  onClick={closeDropdown}
+                >
                   Licensing &amp; Permits
-</a>
-<a className="navDropItem" href="#certificates" onClick={() => setServicesOpen(false)}>
+                </Link>
 
+                <Link
+                  className="navDropItem"
+                  to="/#certificates"
+                  onClick={closeDropdown}
+                >
                   Certificates &amp; Requests
-</a>
-</div>
-
+                </Link>
+              </div>
             )}
-</div>
- 
-          <a className="navLink" href="#news">Events &amp; News</a>
-<a className="navLink" href="#team">Our Team</a>
-<a className="navLink" href="#contact">Contact</a>
-</nav>
- 
-        {/* RIGHT ICONS (optional placeholders) */}
-<div className="navRight">
-<button className="navIconBtn" type="button" aria-label="Language">A</button>
-<button className="navIconBtn" type="button" aria-label="Notifications">🔔</button>
-<button className="navIconBtn" type="button" aria-label="Profile">👤</button>
-</div>
-</div>
-</header>
+          </div>
 
+          <Link className="navLink" to="/news">
+            Events &amp; News
+          </Link>
+
+          <Link className="navLink" to="/#team">
+            Our Team
+          </Link>
+
+          <Link className="navLink" to="/#contact">
+            Contact
+          </Link>
+        </nav>
+
+        {/* RIGHT ICONS */}
+        <div className="navRight">
+          <button className="navIconBtn" type="button" aria-label="Language">
+            <Languages size={18} color="white" />
+          </button>
+
+          <button className="navIconBtn" type="button" aria-label="Notifications">
+            <Bell size={18} color="white" />
+          </button>
+
+          <button className="navIconBtn" type="button" aria-label="Profile">
+            <User size={18} color="white" />
+          </button>
+        </div>
+      </div>
+    </header>
   );
-
 }
- 
