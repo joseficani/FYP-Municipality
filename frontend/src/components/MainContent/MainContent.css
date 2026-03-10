@@ -1,10 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Imprima&family=IBM+Plex+Sans:wght@700&display=swap");
+
 * {
   box-sizing: border-box;
 }
-/* =========================
-   GLOBAL THEME
-========================= */
-@import url("https://fonts.googleapis.com/css2?family=Imprima&family=IBM+Plex+Sans:wght@700&display=swap");
 
 :root {
   --page-bg: #ffffff;
@@ -15,6 +13,15 @@
   --text-soft: #6b7280;
   --green-main: #0f5a3b;
   --green-light: #059669;
+
+  --bg: #ffffff;
+  --text: #3f3e2c;
+  --muted: #7a7a68;
+  --line: rgba(63, 62, 44, 0.35);
+  --card: #ffffff;
+  --shadow: 0 18px 38px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 26px 55px rgba(0, 0, 0, 0.14);
+  --green: #0f5a3b;
 }
 
 html,
@@ -33,11 +40,7 @@ main {
   background: var(--page-bg);
 }
 
-/* =========================
-   FONT ROLES
-========================= */
-
-/* Main titles */
+/* FONT ROLES */
 .heroTitle,
 .svcMainTitle,
 .enMainTitle,
@@ -52,8 +55,6 @@ main {
   font-weight: 700;
 }
 
-/* Small titles / subtitles / descriptions / body */
-.heroBadge,
 .heroText,
 .heroBtn,
 .heroInput,
@@ -84,9 +85,8 @@ main {
 .contactInfoValue {
   font-family: var(--body-font);
 }
-/* =========================
-   HERO
-========================= */
+
+/* HERO */
 .hero {
   position: relative;
   min-height: 85vh;
@@ -139,29 +139,12 @@ main {
   height: auto;
 }
 
-.heroBadge {
-  display: inline-block;
-  margin-bottom: 18px;
-  padding: 10px 18px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.16);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
 .heroTitle {
   font-size: clamp(42px, 7vw, 78px);
-  font-weight: 800;
   line-height: 1.05;
   color: #fff;
   margin: 0 0 24px;
   letter-spacing: -1.5px;
-  text-shadow: none;
 }
 
 .heroTitle span {
@@ -184,10 +167,8 @@ main {
   padding: 16px 34px;
   border-radius: 999px;
   font-size: 18px;
-  font-weight: 600;
   cursor: pointer;
   transition: 0.3s ease;
-  height: auto;
 }
 
 .heroBtn:hover {
@@ -269,7 +250,6 @@ main {
   color: white;
   padding: 0 16px 0 48px;
   font-size: 15px;
-  font-weight: 500;
 }
 
 .heroInput::placeholder {
@@ -326,27 +306,11 @@ main {
   cursor: pointer;
   display: grid;
   place-items: center;
-  gap: 2px;
   z-index: 4;
 }
 
-.aiBadge {
-  font-size: 12px;
-  font-weight: 900;
-  color: #fff;
-  line-height: 1;
-}
-
-.aiChat {
-  font-size: 18px;
-  line-height: 1;
-}
-
-/* =========================
-   SERVICES SECTION
-========================= */
+/* SERVICES */
 .svcSection {
-  position: relative;
   background: #ffffff;
   padding: 110px 20px 90px;
 }
@@ -358,20 +322,16 @@ main {
 }
 
 .svcSmallTitle {
-  text-align: center;
   color: #059669;
   font-size: 14px;
-  font-weight: 600;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   margin-bottom: 12px;
 }
 
 .svcMainTitle {
-  text-align: center;
   font-size: clamp(32px, 4vw, 48px);
   line-height: 1.2;
-  font-weight: 800;
   color: #111827;
   margin: 0 0 60px;
 }
@@ -442,7 +402,6 @@ main {
 
 .svcCardTitle {
   font-size: 22px;
-  font-weight: 700;
   color: #111827;
   margin-bottom: 14px;
 }
@@ -479,20 +438,7 @@ main {
   color: white;
 }
 
-/* =========================
-   EVENTS & NEWS
-========================= */
-:root {
-  --bg: #ffffff;
-  --text: #3f3e2c;
-  --muted: #7a7a68;
-  --line: rgba(63, 62, 44, 0.35);
-  --card: #ffffff;
-  --shadow: 0 18px 38px rgba(0, 0, 0, 0.1);
-  --shadowHover: 0 26px 55px rgba(0, 0, 0, 0.14);
-  --green: #0f5a3b;
-}
-
+/* EVENTS & NEWS */
 .enSection {
   background: var(--bg);
   padding: 70px 0 80px;
@@ -513,7 +459,6 @@ main {
 
 .enMainTitle {
   font-size: clamp(26px, 3vw, 36px);
-  font-weight: 700;
   color: var(--text);
   margin: 0 0 14px;
 }
@@ -552,7 +497,6 @@ main {
   border: none;
   color: var(--text);
   font-size: 16px;
-  font-weight: 600;
   cursor: pointer;
   padding: 10px 18px;
   border-radius: 999px;
@@ -589,14 +533,13 @@ main {
   align-items: center;
   justify-content: center;
   color: var(--text);
-  font-weight: 600;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   min-height: 140px;
 }
 
 .enCard:hover {
   transform: translateY(-5px);
-  box-shadow: var(--shadowHover);
+  box-shadow: var(--shadow-hover);
 }
 
 .enCardBig {
@@ -635,7 +578,6 @@ main {
   border: none;
   background: #ffffff;
   color: var(--text);
-  font-weight: 700;
   padding: 12px 26px;
   border-radius: 999px;
   cursor: pointer;
@@ -658,7 +600,6 @@ main {
 
 .postHeadline {
   color: var(--text);
-  font-weight: 700;
   font-size: 18px;
   line-height: 1.5;
   margin: 16px 0 26px;
@@ -714,14 +655,12 @@ main {
 
 .postLabel {
   color: var(--text);
-  font-weight: 600;
   font-size: 14px;
   white-space: nowrap;
 }
 
 .postValue {
   color: rgba(63, 62, 44, 0.55);
-  font-weight: 600;
   font-size: 14px;
   white-space: nowrap;
 }
@@ -738,7 +677,6 @@ main {
   border-radius: 12px;
   background: var(--green);
   color: #fff;
-  font-weight: 700;
   cursor: pointer;
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
   transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
@@ -750,9 +688,7 @@ main {
   filter: brightness(1.02);
 }
 
-/* =========================
-   TEAM
-========================= */
+/* TEAM */
 .teamSection {
   background: #ffffff;
   padding: 80px 0;
@@ -775,7 +711,6 @@ main {
   font-size: 14px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  font-family: "Imprima", sans-serif;
   margin-bottom: 10px;
 }
 
@@ -783,8 +718,6 @@ main {
   font-size: clamp(32px, 4vw, 48px);
   line-height: 1.2;
   color: #111827;
-  font-family: "IBM Plex Sans", sans-serif;
-  font-weight: 700;
   margin: 0;
 }
 
@@ -846,15 +779,12 @@ main {
 .teamName {
   font-size: clamp(34px, 4vw, 48px);
   color: #111827;
-  font-family: "IBM Plex Sans", sans-serif;
-  font-weight: 700;
   margin: 0 0 8px;
 }
 
 .teamRole {
   font-size: 22px;
   color: #047857;
-  font-family: "Imprima", sans-serif;
   margin: 0 0 24px;
 }
 
@@ -862,7 +792,6 @@ main {
   color: #6b7280;
   line-height: 1.8;
   font-size: 16px;
-  font-family: "Imprima", sans-serif;
   margin: 0 0 32px;
   max-width: 560px;
 }
@@ -886,14 +815,12 @@ main {
 }
 
 .teamContactText {
-  font-family: "Imprima", sans-serif;
   font-size: 16px;
 }
 
 .teamProfileImageWrap {
   flex: 1;
   display: flex;
-  justify-content: center;
   justify-content: flex-end;
   position: relative;
 }
@@ -919,71 +846,7 @@ main {
   box-shadow: 0 18px 36px rgba(0, 0, 0, 0.14);
 }
 
-/* Responsive */
-@media (max-width: 992px) {
-  .teamProfileCard {
-    padding: 0 60px;
-    gap: 30px;
-  }
-
-  .teamImageBlob,
-  .teamProfileImage {
-    width: 280px;
-    height: 280px;
-  }
-}
-
-@media (max-width: 768px) {
-  .teamHeader {
-    margin-bottom: 44px;
-  }
-
-  .teamProfileCard {
-    flex-direction: column-reverse;
-    text-align: center;
-    padding: 0 20px;
-  }
-
-  .teamProfileText {
-    text-align: center;
-  }
-
-  .teamBio {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .teamContactItem {
-    justify-content: center;
-  }
-
-  .teamProfileImageWrap {
-    justify-content: center;
-  }
-
-  .teamNavBtn {
-    width: 42px;
-    height: 42px;
-  }
-
-  .teamNavLeft {
-    left: 4px;
-  }
-
-  .teamNavRight {
-    right: 4px;
-  }
-
-  .teamImageBlob,
-  .teamProfileImage {
-    width: 240px;
-    height: 240px;
-  }
-}
-
-/* =========================
-   CONTACT
-========================= */
+/* CONTACT */
 .contactSection {
   background: #ffffff;
   padding: 60px 0 90px;
@@ -1004,7 +867,6 @@ main {
 
 .contactMainTitle {
   font-size: 34px;
-  font-weight: 800;
   color: #3f3e2c;
   margin: 0 0 30px;
 }
@@ -1031,7 +893,6 @@ main {
 .contactCardTitle {
   margin: 0 0 4px;
   font-size: 20px;
-  font-weight: 800;
   color: #5a5a3d;
 }
 
@@ -1059,7 +920,6 @@ main {
 
 .contactLabel {
   font-size: 13px;
-  font-weight: 700;
   color: #5a5a3d;
 }
 
@@ -1096,7 +956,6 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
   color: #5a5a3d;
   background: #f7f6f2;
   border-right: 1px solid rgba(63, 62, 44, 0.18);
@@ -1120,7 +979,6 @@ main {
   height: 38px;
   padding: 0 18px;
   border-radius: 999px;
-  font-weight: 800;
   cursor: pointer;
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.14);
 }
@@ -1130,7 +988,7 @@ main {
   right: -10px;
   top: 70px;
   width: 280px;
-  padding: 30px 30px;
+  padding: 30px;
   border-radius: 16px;
   background: #0f5a3b;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
@@ -1141,7 +999,6 @@ main {
 .contactInfoTitle {
   margin: 0 0 14px;
   font-size: 16px;
-  font-weight: 800;
   line-height: 1.25;
 }
 
@@ -1174,35 +1031,225 @@ main {
 .contactInfoLabel {
   margin: 0;
   font-size: 13px;
-  font-weight: 800;
   opacity: 0.95;
 }
 
 .contactInfoValue {
   margin: 2px 0 0;
   font-size: 13px;
-  font-weight: 700;
   opacity: 0.9;
 }
 
-/* =========================
-   FOCUS
-========================= */
+/* AI MODAL - CENTER POPUP */
+.aiModalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.32);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.aiModalCard {
+  width: min(820px, 100%);
+  max-height: 88vh;
+  overflow: hidden;
+  background: #f6f6f3;
+  border-radius: 22px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+  display: flex;
+  flex-direction: column;
+}
+
+.aiModalBar {
+  height: 72px;
+  background: #0e4223;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+}
+
+.aiModalBarTitle {
+  margin: 0;
+  color: #ffffff;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 20px;
+}
+
+.aiModalCloseBtn {
+  border: none;
+  background: transparent;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.aiModalBody {
+  padding: 24px 24px 22px;
+  overflow-y: auto;
+}
+
+.aiModalHeaderIconWrap {
+  display: flex;
+  justify-content: center;
+  color: #5a5820;
+  margin-bottom: 10px;
+}
+
+.aiModalChatArea {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 22px;
+  min-height: 260px;
+}
+
+.aiModalMessageGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.meGroup {
+  align-items: flex-start;
+}
+
+.botGroup {
+  align-items: center;
+}
+
+.aiModalSender {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.meSender,
+.botSender {
+  color: #6d9a73;
+}
+
+.aiModalBubble {
+  background: #ffffff;
+  border: 1px solid #ddd8cb;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  font-family: "Imprima", sans-serif;
+  color: #5a5820;
+}
+
+.meBubble {
+  max-width: 320px;
+  min-width: 240px;
+  padding: 12px 18px;
+  border-radius: 16px;
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.botBubble {
+  width: min(100%, 560px);
+  padding: 16px 20px;
+  border-radius: 16px;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.botBubble p {
+  margin: 0 0 8px;
+}
+
+.botBubble ol {
+  margin: 0 0 8px 20px;
+  padding: 0;
+}
+
+.botBubble li {
+  margin-bottom: 2px;
+}
+
+.aiModalSuggestions {
+  margin-top: 10px;
+  margin-bottom: 16px;
+}
+
+.aiModalSuggestionsTitle {
+  margin: 0 0 10px;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 16px;
+  color: #6c9a72;
+}
+
+.aiModalSuggestionList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.aiModalSuggestionBtn {
+  border: none;
+  background: #14532d;
+  color: #ffffff;
+  font-family: "Imprima", sans-serif;
+  font-size: 14px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.aiModalInputWrap {
+  position: relative;
+  margin-top: 8px;
+}
+
+.aiModalInput {
+  width: 100%;
+  height: 58px;
+  border-radius: 16px;
+  border: 1.5px solid #a8a17b;
+  background: transparent;
+  padding: 0 62px 0 18px;
+  font-family: "Imprima", sans-serif;
+  font-size: 18px;
+  color: #5a5820;
+  outline: none;
+}
+
+.aiModalInput::placeholder {
+  color: #8f8a6d;
+}
+
+.aiModalSendBtn {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: #8f8a6d;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* FOCUS */
 .enTab:focus-visible,
 .enMoreBtn:focus-visible,
 .postInput:focus-visible,
 .postTextarea:focus-visible,
 .postBtn:focus-visible,
-.teamArrow:focus-visible,
 .contactBtn:focus-visible,
 .svcArrow:focus-visible {
   outline: 3px solid rgba(63, 62, 44, 0.35);
   outline-offset: 3px;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* RESPONSIVE */
 @media (max-width: 900px) {
   .heroSearchPill {
     flex-direction: column;
@@ -1242,37 +1289,6 @@ main {
   .enCardSmall,
   .enCardWide {
     min-height: 150px;
-  }
-
-  .teamCard {
-    padding: 26px 18px 18px;
-  }
-
-  .teamContent {
-    grid-template-columns: 1fr;
-    text-align: center;
-    margin-left: 0;
-  }
-
-  .teamBio {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .teamContactRow {
-    justify-content: center;
-  }
-
-  .teamArrowLeft {
-    left: 8px;
-  }
-
-  .teamArrowRight {
-    right: 8px;
-  }
-
-  .teamImg {
-    height: 260px;
   }
 
   .contactGrid {
@@ -1318,13 +1334,90 @@ main {
     bottom: 20px;
   }
 
-  .heroBadge {
-    font-size: 12px;
-    padding: 8px 14px;
-  }
-
   .svcSection {
     padding-top: 90px;
+  }
+
+  .teamHeader {
+    margin-bottom: 44px;
+  }
+
+  .teamProfileCard {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding: 0 20px;
+  }
+
+  .teamProfileText {
+    text-align: center;
+  }
+
+  .teamBio {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .teamContactItem {
+    justify-content: center;
+  }
+
+  .teamProfileImageWrap {
+    justify-content: center;
+  }
+
+  .teamNavBtn {
+    width: 42px;
+    height: 42px;
+  }
+
+  .teamNavLeft {
+    left: 4px;
+  }
+
+  .teamNavRight {
+    right: 4px;
+  }
+
+  .teamImageBlob,
+  .teamProfileImage {
+    width: 240px;
+    height: 240px;
+  }
+
+  .aiModalCard {
+    width: 100%;
+    max-height: 92vh;
+  }
+
+  .aiModalBar {
+    height: 64px;
+    padding: 0 16px;
+  }
+
+  .aiModalBarTitle {
+    font-size: 18px;
+  }
+
+  .aiModalBody {
+    padding: 18px 16px 18px;
+  }
+
+  .meBubble {
+    min-width: unset;
+    max-width: 92%;
+  }
+
+  .botBubble {
+    width: 100%;
+  }
+
+  .aiModalSuggestionList {
+    flex-direction: column;
+  }
+
+  .aiModalSuggestionBtn {
+    width: 100%;
+    text-align: left;
   }
 }
 

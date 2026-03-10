@@ -2,10 +2,12 @@ import "./Header.css";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Languages, Bell, User } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Header({ solid = false }) {
   const [servicesOpen, setServicesOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onDown = (e) => {
@@ -33,7 +35,7 @@ export default function Header({ solid = false }) {
 
         {/* MENU */}
         <nav className="navMenu">
-          <Link className="navLink" to="/">
+          <Link className="navLink" to="/dashboard">
             Home
           </Link>
 
@@ -52,7 +54,7 @@ export default function Header({ solid = false }) {
               <div className="navDropMenu">
                 <Link
                   className="navDropItem"
-                  to="/#complaints"
+                  to="/complaints"
                   onClick={closeDropdown}
                 >
                   Complaints
@@ -60,7 +62,7 @@ export default function Header({ solid = false }) {
 
                 <Link
                   className="navDropItem"
-                  to="/#taxes"
+                  to="/taxes-fees"
                   onClick={closeDropdown}
                 >
                   Taxes &amp; Fees
@@ -68,7 +70,7 @@ export default function Header({ solid = false }) {
 
                 <Link
                   className="navDropItem"
-                  to="/#licensing"
+                  to="/licenses-permits"
                   onClick={closeDropdown}
                 >
                   Licensing &amp; Permits
@@ -76,7 +78,7 @@ export default function Header({ solid = false }) {
 
                 <Link
                   className="navDropItem"
-                  to="/#certificates"
+                  to="/certificates"
                   onClick={closeDropdown}
                 >
                   Certificates &amp; Requests
@@ -100,17 +102,21 @@ export default function Header({ solid = false }) {
 
         {/* RIGHT ICONS */}
         <div className="navRight">
-          <button className="navIconBtn" type="button" aria-label="Language">
+          <button className="navIconBtn" type="button" aria-label="Language" >
             <Languages size={18} color="white" />
           </button>
 
-          <button className="navIconBtn" type="button" aria-label="Notifications">
+          <button className="navIconBtn" type="button" aria-label="Notifications"
+            onClick={() => navigate("/notifications")}>
             <Bell size={18} color="white" />
           </button>
+ 
 
-          <button className="navIconBtn" type="button" aria-label="Profile">
+                    <button className="navIconBtn" type="button" aria-label="Profile"  
+            onClick={() => navigate("/profile")}>
             <User size={18} color="white" />
           </button>
+ 
         </div>
       </div>
     </header>

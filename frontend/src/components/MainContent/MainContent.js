@@ -2,7 +2,7 @@ import "./MainContent.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import {
-   Search,
+  Search,
   ChevronDown,
   Receipt,
   FileText,
@@ -11,7 +11,6 @@ import {
   ArrowRight,
   SendHorizonal,
   Bot,
-  ArrowLeft,
   X,
 } from "lucide-react";
 
@@ -23,9 +22,9 @@ import team3 from "../../assets/profile1.png";
 export default function MainContent() {
   const [tab, setTab] = useState("events");
   const [memberIndex, setMemberIndex] = useState(0);
-  const navigate = useNavigate();
   const [aiOpen, setAiOpen] = useState(false);
   const [aiMessage, setAiMessage] = useState("");
+  const navigate = useNavigate();
 
   const cards =
     tab === "events"
@@ -86,6 +85,7 @@ export default function MainContent() {
       description:
         "Apply for permits, get instructions on the steps, upload documents, and track approval status.",
       icon: <FileText size={30} />,
+      route: "/licenses-permits",
     },
     {
       title: "Complaints",
@@ -168,7 +168,12 @@ export default function MainContent() {
           </div>
         </div>
 
-        <button className="aiFloat" aria-label="AI chat" type="button" onClick={() => navigate("/ai-assistant")}>
+        <button
+          className="aiFloat"
+          aria-label="AI chat"
+          type="button"
+          onClick={() => setAiOpen(true)}
+        >
           <Bot color="#ffffff" size={30} />
         </button>
       </section>
@@ -186,7 +191,12 @@ export default function MainContent() {
                 <div className="svcTopIcon">{service.icon}</div>
                 <h3 className="svcCardTitle">{service.title}</h3>
                 <p className="svcCardText">{service.description}</p>
-                <button className="svcArrow" aria-label="open" type="button">
+                <button
+                  className="svcArrow"
+                  aria-label="open"
+                  type="button"
+                  onClick={() => navigate(service.route)}
+                >
                   <ArrowRight size={20} />
                 </button>
               </div>
@@ -468,6 +478,101 @@ export default function MainContent() {
           </div>
         </div>
       </section>
+
+      {aiOpen && (
+        <div className="aiModalOverlay" onClick={() => setAiOpen(false)}>
+          <div className="aiModalCard" onClick={(e) => e.stopPropagation()}>
+            <div className="aiModalBar">
+              <h2 className="aiModalBarTitle">Ask our AI anything</h2>
+
+              <button
+                className="aiModalCloseBtn"
+                type="button"
+                onClick={() => setAiOpen(false)}
+                aria-label="Close"
+              >
+                <X size={22} />
+              </button>
+            </div>
+
+            <div className="aiModalBody">
+              <div className="aiModalHeaderIconWrap">
+                <Bot size={34} />
+              </div>
+
+              <div className="aiModalChatArea">
+                <div className="aiModalMessageGroup meGroup">
+                  <span className="aiModalSender meSender">ME</span>
+                  <div className="aiModalBubble meBubble">
+                    How do I submit a complaint?
+                  </div>
+                </div>
+
+                <div className="aiModalMessageGroup botGroup">
+                  <span className="aiModalSender botSender">AI</span>
+                  <div className="aiModalBubble botBubble">
+                    <p>
+                      You can submit a complaint directly through the platform in
+                      a few simple steps:
+                    </p>
+                    <ol>
+                      <li>Log in to your account.</li>
+                      <li>Go to Services and select Complaints &amp; Feedback.</li>
+                      <li>Click Submit a Complaint.</li>
+                      <li>
+                        Fill in the required details (subject, description, and
+                        location if needed).
+                      </li>
+                      <li>Attach any photos or documents if relevant.</li>
+                      <li>Press Send.</li>
+                    </ol>
+                    <p>
+                      After submission, you’ll receive a notification once your
+                      complaint is reviewed or updated. You can also track its
+                      status from My Activities in your profile.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="aiModalSuggestions">
+                <p className="aiModalSuggestionsTitle">
+                  Suggestions on what to ask
+                </p>
+
+                <div className="aiModalSuggestionList">
+                  <button className="aiModalSuggestionBtn" type="button">
+                    How do I submit a complaint?
+                  </button>
+                  <button className="aiModalSuggestionBtn" type="button">
+                    What documents are needed for property tax?
+                  </button>
+                  <button className="aiModalSuggestionBtn" type="button">
+                    Where do I pay municipal fees?
+                  </button>
+                </div>
+              </div>
+
+              <div className="aiModalInputWrap">
+                <input
+                  type="text"
+                  className="aiModalInput"
+                  placeholder="Ask me anything ......."
+                  value={aiMessage}
+                  onChange={(e) => setAiMessage(e.target.value)}
+                />
+                <button
+                  className="aiModalSendBtn"
+                  type="button"
+                  aria-label="Send message"
+                >
+                  <SendHorizonal size={24} />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
