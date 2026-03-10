@@ -1,0 +1,623 @@
+.taxes-page-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f9f8f3;
+}
+
+.taxes-hero {
+  position: relative;
+  background: linear-gradient(135deg, #14532d 0%, #1f7a45 100%);
+  color: white;
+  padding: 150px 20px 80px;
+  overflow: hidden;
+}
+
+.taxes-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.taxes-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.taxes-breadcrumb {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.78);
+  margin-bottom: 22px;
+}
+
+.taxes-breadcrumb .active {
+  color: white;
+  font-weight: 700;
+}
+
+.taxes-hero h1 {
+  margin: 0 0 16px;
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.taxes-hero p {
+  margin: 0;
+  max-width: 780px;
+  font-size: 20px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.taxes-main {
+  flex: 1;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 18px 50px;
+}
+
+.taxes-search-bar {
+  background: white;
+  padding: 16px;
+  border-radius: 18px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e8e6d9;
+  margin: -36px auto 34px;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.taxes-search-input-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 280px;
+}
+
+.taxes-search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+}
+
+.taxes-search-input-wrap input {
+  width: 100%;
+  height: 48px;
+  border: 1px solid #e8e6d9;
+  border-radius: 12px;
+  padding: 0 14px 0 44px;
+  font-size: 15px;
+  color: #46461b;
+  outline: none;
+}
+
+.taxes-search-input-wrap input:focus {
+  border-color: #14532d;
+}
+
+.taxes-search-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.taxes-outline-btn,
+.taxes-green-btn,
+.taxes-white-btn,
+.taxes-transparent-btn,
+.tax-info-btn,
+.fee-outline-btn,
+.fee-green-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: 0.2s ease;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+.taxes-outline-btn {
+  height: 48px;
+  padding: 0 18px;
+  background: white;
+  border: 1px solid #e8e6d9;
+  color: #46461b;
+}
+
+.taxes-outline-btn:hover {
+  background: #f9fafb;
+}
+
+.taxes-green-btn {
+  height: 48px;
+  padding: 0 18px;
+  border: none;
+  background: #14532d;
+  color: white;
+}
+
+.taxes-green-btn:hover {
+  background: #0f3f21;
+}
+
+.taxes-info-banner {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: #ecfdf5;
+  border: 1px solid #d1fae5;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 34px;
+}
+
+.taxes-info-icon {
+  color: #14532d;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.taxes-info-banner h4 {
+  margin: 0 0 6px;
+  color: #46461b;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.taxes-info-banner p {
+  margin: 0;
+  color: rgba(70, 70, 27, 0.85);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.taxes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.tax-card {
+  background: white;
+  border: 1px solid #e8e6d9;
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+}
+
+.tax-card-header {
+  padding: 22px;
+  border-bottom: 1px solid #e8e6d9;
+  background: linear-gradient(to right, #f9fafb, #ffffff);
+}
+
+.tax-card-header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+
+.tax-card-icon-box {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: rgba(20, 83, 45, 0.1);
+  color: #14532d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tax-card-fees-count {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(20, 83, 45, 0.1);
+  color: #14532d;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.tax-card h3 {
+  margin: 0 0 4px;
+  font-size: 22px;
+  font-weight: 800;
+  color: #46461b;
+}
+
+.tax-card-arabic {
+  margin: 0;
+  color: rgba(70, 70, 27, 0.6);
+  font-size: 14px;
+}
+
+.tax-card-description {
+  margin: 14px 0 0;
+  color: rgba(70, 70, 27, 0.82);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.tax-card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.tax-fee-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.tax-fee-row:hover {
+  background: #f9f8f3;
+  border-color: #e8e6d9;
+}
+
+.tax-fee-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.tax-fee-info h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #46461b;
+}
+
+.tax-fee-info p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.tax-fee-arrow {
+  border: none;
+  background: transparent;
+  color: #14532d;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.tax-card-footer {
+  padding: 14px 16px;
+  border-top: 1px solid #e8e6d9;
+  background: rgba(249, 250, 251, 0.7);
+}
+
+.tax-info-btn {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: #14532d;
+  padding: 8px 10px;
+}
+
+.tax-info-btn:hover {
+  background: rgba(20, 83, 45, 0.05);
+}
+
+.taxes-help-box {
+  position: relative;
+  margin-top: 54px;
+  background: #14532d;
+  border-radius: 24px;
+  overflow: hidden;
+  padding: 42px 24px;
+  text-align: center;
+}
+
+.taxes-help-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.taxes-help-content {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.taxes-help-content h2 {
+  margin: 0 0 14px;
+  color: white;
+  font-size: 34px;
+  font-weight: 800;
+}
+
+.taxes-help-content p {
+  margin: 0 0 28px;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.taxes-help-actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.taxes-white-btn {
+  min-width: 170px;
+  height: 48px;
+  padding: 0 20px;
+  border: none;
+  background: white;
+  color: #14532d;
+}
+
+.taxes-white-btn:hover {
+  background: #f3f4f6;
+}
+
+.taxes-transparent-btn {
+  min-width: 170px;
+  height: 48px;
+  padding: 0 20px;
+  border: 2px solid white;
+  background: transparent;
+  color: white;
+}
+
+.taxes-transparent-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* modal */
+.fee-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.fee-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 24, 39, 0.45);
+  backdrop-filter: blur(2px);
+}
+
+.fee-modal-box {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 860px;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.2);
+}
+
+.fee-modal-header {
+  background: #14532d;
+  padding: 22px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.fee-modal-header h3 {
+  margin: 0;
+  font-size: 30px;
+  color: white;
+  font-weight: 800;
+}
+
+.fee-modal-header p {
+  margin: 6px 0 0;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.fee-close-btn {
+  border: none;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+}
+
+.fee-modal-body {
+  padding: 24px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.fee-main-description {
+  margin: 0 0 22px;
+  color: #46461b;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.fee-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.fee-detail-card {
+  background: #f9f8f3;
+  border: 1px solid #e8e6d9;
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.fee-detail-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #14532d;
+  margin-bottom: 12px;
+}
+
+.fee-detail-title h4 {
+  margin: 0;
+  font-size: 18px;
+  color: #46461b;
+  font-weight: 800;
+}
+
+.fee-detail-card p {
+  margin: 0;
+  color: #46461b;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.fee-cost {
+  font-weight: 700;
+  color: #14532d !important;
+}
+
+.fee-detail-card ul {
+  margin: 0;
+  padding-left: 18px;
+  color: #46461b;
+}
+
+.fee-detail-card li {
+  margin-bottom: 6px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.fee-note-box {
+  margin-top: 20px;
+  background: #ecfdf5;
+  color: #166534;
+  border: 1px solid #d1fae5;
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.fee-note-box span {
+  font-weight: 800;
+}
+
+.fee-modal-footer {
+  padding: 18px 24px;
+  border-top: 1px solid #e8e6d9;
+  background: #f9fafb;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.fee-outline-btn {
+  min-width: 120px;
+  height: 44px;
+  border: 1px solid #e8e6d9;
+  background: white;
+  color: #46461b;
+  padding: 0 18px;
+}
+
+.fee-outline-btn:hover {
+  background: #f9fafb;
+}
+
+.fee-green-btn {
+  min-width: 140px;
+  height: 44px;
+  border: none;
+  background: #14532d;
+  color: white;
+  padding: 0 18px;
+}
+
+.fee-green-btn:hover {
+  background: #0f3f21;
+}
+
+@media (max-width: 1100px) {
+  .taxes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .taxes-hero {
+    padding: 125px 14px 72px;
+  }
+
+  .taxes-hero h1 {
+    font-size: 34px;
+  }
+
+  .taxes-hero p {
+    font-size: 16px;
+  }
+
+  .taxes-main {
+    padding: 0 14px 36px;
+  }
+
+  .taxes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .taxes-search-bar {
+    margin-top: -28px;
+  }
+
+  .fee-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fee-modal-footer {
+    flex-direction: column;
+  }
+
+  .fee-outline-btn,
+  .fee-green-btn,
+  .taxes-white-btn,
+  .taxes-transparent-btn {
+    width: 100%;
+  }
+}
