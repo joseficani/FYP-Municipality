@@ -1,14 +1,46 @@
 import "./Header.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import { Languages, Bell, User } from "lucide-react";
- 
+
 export default function Header({ solid = false }) {
   const [servicesOpen, setServicesOpen] = useState(false);
+  // const [language, setLanguage] = useState("en");
+  const [language, setLanguage] = useState(localStorage.getItem("language") || "en");
   const dropdownRef = useRef(null);
-    const navigate = useNavigate();
- 
+  const navigate = useNavigate();
+
+  const translations = {
+    en: {
+      home: "Home",
+      services: "Services",
+      complaints: "Complaints",
+      taxesFees: "Taxes & Fees",
+      licensingPermits: "Licensing & Permits",
+      certificates: "Certificates & Requests",
+      projects: "Projects & Tenders",
+      eventsNews: "Events & News",
+      findOutMore: "Find Out More",
+      ourTeam: "Our Team",
+      contact: "Contact",
+    },
+    ar: {
+      home: "الرئيسية",
+      services: "الخدمات",
+      complaints: "الشكاوى",
+      taxesFees: "الضرائب والرسوم",
+      licensingPermits: "التراخيص والتصاريح",
+      certificates: "الشهادات والطلبات",
+      projects: "المشاريع والمناقصات",
+      eventsNews: "الفعاليات والأخبار",
+      findOutMore: "اكتشف المزيد",
+      ourTeam: "فريقنا",
+      contact: "تواصل معنا",
+    },
+  };
+
+  const t = translations[language];
+
   useEffect(() => {
     const onDown = (e) => {
       if (!dropdownRef.current) return;
@@ -16,56 +48,65 @@ export default function Header({ solid = false }) {
         setServicesOpen(false);
       }
     };
- 
+
     document.addEventListener("mousedown", onDown);
     return () => document.removeEventListener("mousedown", onDown);
   }, []);
- 
+
+  useEffect(() => {
+    document.documentElement.lang = language;
+    document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+    localStorage.setItem("language", language);
+    window.dispatchEvent(new Event("languageChange"));
+  }, [language]);
+
   const closeDropdown = () => setServicesOpen(false);
+
+  const handleToggleLanguage = () => {
+    setLanguage((prev) => (prev === "en" ? "ar" : "en"));
+    setServicesOpen(false);
+  };
 
   return (
     <header className={`navHeader ${solid ? "navHeaderSolid" : ""}`}>
       <div className="navInner">
-        {/* LOGO */}
         <div className="navLogo">
-
           <Link to="/Dashboard" className="navBrandLink">
             <span className="navBrand">MuniciPal</span>
           </Link>
         </div>
- 
-        {/* MENU */}
+
         <nav className="navMenu">
           <Link className="navLink" to="/Dashboard">
-            Home
+            {t.home}
           </Link>
- 
-          {/* SERVICES DROPDOWN */}
+
           <div className="navDropdown" ref={dropdownRef}>
             <button
               type="button"
               className={`navDropBtn ${servicesOpen ? "active" : ""}`}
               onClick={() => setServicesOpen((v) => !v)}
             >
-              <span>Services</span>
+              <span>{t.services}</span>
               <span className={`navCaret ${servicesOpen ? "rot" : ""}`}>▾</span>
             </button>
-             {servicesOpen && (
+
+            {servicesOpen && (
               <div className="navDropMenu">
                 <Link
                   className="navDropItem"
                   to="/complaints"
                   onClick={closeDropdown}
                 >
-                  Complaints
+                  {t.complaints}
                 </Link>
- 
+
                 <Link
                   className="navDropItem"
                   to="/taxes-fees"
                   onClick={closeDropdown}
                 >
-                  Taxes &amp; Fees
+                  {t.taxesFees}
                 </Link>
 
                 <Link
@@ -73,46 +114,70 @@ export default function Header({ solid = false }) {
                   to="/licenses-permits"
                   onClick={closeDropdown}
                 >
-                  Licensing &amp; Permits
+                  {t.licensingPermits}
                 </Link>
- 
+
                 <Link
                   className="navDropItem"
                   to="/certificates"
                   onClick={closeDropdown}
                 >
-                  Certificates &amp; Requests
+                  {t.certificates}
+                </Link>
+
+                <Link
+                  className="navDropItem"
+                  to="/projects"
+                  onClick={closeDropdown}
+                >
+                  {t.projects}
                 </Link>
               </div>
             )}
           </div>
- 
+
           <Link className="navLink" to="/events-news">
-            Events &amp; News
+            {t.eventsNews}
           </Link>
- 
-          <Link className="navLink" to="/#team">
-            Our Team
+
+          <Link className="navLink" to="/find-out-more">
+            {t.findOutMore}
           </Link>
- 
+
+          <Link className="navLink" to="/meet-the-team">
+            {t.ourTeam}
+          </Link>
+
           <Link className="navLink" to="/contact">
-            Contact
+            {t.contact}
           </Link>
         </nav>
- 
-        {/* RIGHT ICONS */}
+
         <div className="navRight">
-          <button className="navIconBtn" type="button" aria-label="Language">
+          <button
+            className="navIconBtn"
+            type="button"
+            aria-label="Language"
+            onClick={handleToggleLanguage}
+          >
             <Languages size={18} color="white" />
           </button>
- 
-          <button className="navIconBtn" type="button" aria-label="Notifications"
-            onClick={() => navigate("/notifications")}> 
+
+          <button
+            className="navIconBtn"
+            type="button"
+            aria-label="Notifications"
+            onClick={() => navigate("/notifications")}
+          >
             <Bell size={18} color="white" />
           </button>
- 
-          <button className="navIconBtn" type="button" aria-label="Profile"   
-            onClick={() => navigate("/profile")}> 
+
+          <button
+            className="navIconBtn"
+            type="button"
+            aria-label="Profile"
+            onClick={() => navigate("/profile")}
+          >
             <User size={18} color="white" />
           </button>
         </div>

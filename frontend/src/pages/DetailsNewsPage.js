@@ -1,8 +1,8 @@
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-import NewsDetailsPage from "../components/News/NewsDetailsPage";
+import { NewsDetailsPage } from "../components/News/NewsModules";
 
-export default function NewsDetailsPageWrapper() {
+export default function NewsDetails() {
   return (
     <div className="appShell">
       <Header solid />

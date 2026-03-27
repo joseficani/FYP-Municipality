@@ -22,7 +22,7 @@ body {
 }
 
 .auth-message.success {
-  color: #1E3A5F;
+  color: #14532d;
 }
 
 .login-message.error {
@@ -492,7 +492,7 @@ body {
 }
 
 .sign-in-btn:hover {
-  background: #0f3f22;
+  background: #2C4A6B;
   transform: translateY(-1px);
 }
 
@@ -571,6 +571,48 @@ body {
   transform: translateY(-1px);
 }
 
+/* SELECT FIX */
+.auth-input-group select.auth-input {
+  appearance: none; /* remove default arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  font-family: "Inter", sans-serif; /* same font */
+  padding-right: 40px; /* space for custom arrow */
+  cursor: pointer;
+}
+/* Custom dropdown arrow */
+.auth-input-group {
+  position: relative;
+}
+
+.auth-input-group select.auth-input {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%236b7280' height='20' viewBox='0 0 20 20' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M5 7l5 5 5-5H5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+}
+
+.auth-input-group select.auth-input {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  color: #111827;
+  height: 50px;
+  padding-left: 40px;
+}
+
+/* hover */
+.auth-input-group select.auth-input:hover {
+  background: #ffffff;
+}
+
+/* focus */
+.auth-input-group select.auth-input:focus {
+  background: #ffffff;
+  border-color: #1E3A5F;
+  box-shadow: 0 0 0 3px rgba(20, 83, 45, 0.15);
+}
 /* =========================
    RESPONSIVE
 ========================= */

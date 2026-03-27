@@ -1439,3 +1439,41 @@ main {
     font-size: 20px;
   }
 }
+
+html[dir="rtl"] .hero,
+html[dir="rtl"] .svcSection,
+html[dir="rtl"] .enSection,
+html[dir="rtl"] .teamSection,
+html[dir="rtl"] .contactSection,
+html[dir="rtl"] .aiModalCard {
+  direction: rtl;
+}
+
+html[dir="rtl"] .heroTitle,
+html[dir="rtl"] .heroText,
+html[dir="rtl"] .svcSmallTitle,
+html[dir="rtl"] .svcMainTitle,
+html[dir="rtl"] .svcCard,
+html[dir="rtl"] .enSmallTitle,
+html[dir="rtl"] .enMainTitle,
+html[dir="rtl"] .postHeadline,
+html[dir="rtl"] .teamHeader,
+html[dir="rtl"] .teamProfileText,
+html[dir="rtl"] .contactSmallTitle,
+html[dir="rtl"] .contactMainTitle,
+html[dir="rtl"] .contactFormCard,
+html[dir="rtl"] .contactInfoCard,
+html[dir="rtl"] .aiModalBarTitle,
+html[dir="rtl"] .aiModalSuggestions,
+html[dir="rtl"] .aiModalBubble {
+  text-align: right;
+}
+
+html[dir="rtl"] .heroSearchPill,
+html[dir="rtl"] .enTabsRow,
+html[dir="rtl"] .contactRow2,
+html[dir="rtl"] .contactPhoneWrap,
+html[dir="rtl"] .teamContactItem,
+html[dir="rtl"] .aiModalInputWrap {
+  direction: rtl;
+}

@@ -15,7 +15,7 @@
   width: 100%;
   background: #14532d;
   color: white;
-  padding: 70px 18px 100px;
+  padding: 40px 18px 100px;
   text-align: center;
 }
 
@@ -177,6 +177,11 @@
 
 .contact-submit-btn:hover {
   background: #0f3624;
+}
+
+.contact-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 /* info */
@@ -378,6 +383,111 @@
   text-decoration: none;
 }
 
+/* SUCCESS MODAL */
+.contactModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 99999;
+}
+
+.contactModalCard {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 36px 28px 28px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.18);
+  text-align: center;
+  animation: contactModalFadeIn 0.25s ease;
+}
+
+.contactModalClose {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 50%;
+  background: #f3f2ed;
+  color: #46461b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.contactModalClose:hover {
+  background: #e8e6de;
+  transform: scale(1.05);
+}
+
+.contactModalIconWrap {
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: #e8f7ed;
+  color: #14532d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 0 6px rgba(20, 83, 45, 0.08);
+}
+
+.contactModalTitle {
+  margin: 0 0 10px;
+  font-size: 30px;
+  line-height: 1.2;
+  color: #111827;
+}
+
+.contactModalText {
+  margin: 0 0 24px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #6b7280;
+}
+
+.contactModalButton {
+  border: none;
+  background: #14532d;
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 12px 24px;
+  min-width: 140px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.contactModalButton:hover {
+  background: #0f3624;
+  transform: translateY(-1px);
+}
+
+@keyframes contactModalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 /* responsive */
 @media (max-width: 1100px) {
   .contact-grid {
@@ -421,5 +531,24 @@
 
   .contact-map-box {
     height: 320px;
+  }
+
+  .contactModalCard {
+    max-width: 92%;
+    padding: 30px 20px 22px;
+    border-radius: 18px;
+  }
+
+  .contactModalTitle {
+    font-size: 24px;
+  }
+
+  .contactModalText {
+    font-size: 14px;
+  }
+
+  .contactModalIconWrap {
+    width: 76px;
+    height: 76px;
   }
 }

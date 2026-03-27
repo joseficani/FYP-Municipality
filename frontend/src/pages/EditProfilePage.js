@@ -1,22 +1,65 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import "./EditProfilePage.css";
 import { ArrowLeft, Camera, Save } from "lucide-react";
 
+const API_BASE_URL = "http://localhost:5000/api";
+
 export default function EditProfilePage() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    fullName: "Sarah Jenkins",
-    email: "sarah.j@example.com",
-    phone: "+1 (555) 123-4567",
-    municipality: "Springfield Municipality",
-    residentSince: "2018",
-    address: "Main Street, Springfield",
-    bio: "Resident interested in local services and municipality updates.",
+    name: "",
+    email: "",
+    phone: "",
+    municipality: "",
+    residentSince: "",
+    address: "",
+    bio: "",
+    profileImage: "",
   });
+
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const res = await axios.get(`${API_BASE_URL}/users/me`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const user = res.data.data;
+
+        setFormData({
+          name: user.name || "",
+          email: user.email || "",
+          phone: user.phone || "",
+          municipality: user.municipality || "",
+          residentSince: user.residentSince || "",
+          address: user.address || "",
+          bio: user.bio || "",
+          profileImage:
+            user.profileImage ||
+            "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+        });
+      } catch (error) {
+        console.error("Fetch profile error:", error);
+        console.error("Server response:", error.response?.data);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,16 +69,49 @@ export default function EditProfilePage() {
     }));
   };
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
-    alert("Profile updated successfully.");
-    navigate("/profile");
-    window.scrollTo(0, 0);
+
+    try {
+      setSaving(true);
+
+      const token = localStorage.getItem("token");
+
+      await axios.put(`${API_BASE_URL}/users/me`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      alert("Profile updated successfully.");
+      navigate("/profile");
+      window.scrollTo(0, 0);
+    } catch (error) {
+      console.error("Update profile error:", error);
+      console.error("Server response:", error.response?.data);
+      alert(error.response?.data?.message || "Failed to update profile.");
+    } finally {
+      setSaving(false);
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="edit-profile-page">
+        <Header solid />
+        <main className="edit-profile-main">
+          <div className="edit-profile-container">
+            <p>Loading profile...</p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="edit-profile-page">
-      <Header solid/>
+      <Header solid />
 
       <main className="edit-profile-main">
         <div className="edit-profile-container">
@@ -53,8 +129,8 @@ export default function EditProfilePage() {
               <div className="edit-profile-avatar-wrap">
                 <div className="edit-profile-avatar">
                   <img
-                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt="Sarah Jenkins"
+                    src={formData.profileImage}
+                    alt={formData.name || "Profile"}
                   />
                 </div>
 
@@ -77,8 +153,8 @@ export default function EditProfilePage() {
                   <label>Full Name</label>
                   <input
                     type="text"
-                    name="fullName"
-                    value={formData.fullName}
+                    name="name"
+                    value={formData.name}
                     onChange={handleChange}
                   />
                 </div>
@@ -142,6 +218,16 @@ export default function EditProfilePage() {
                     onChange={handleChange}
                   />
                 </div>
+
+                <div className="edit-field edit-field-full">
+                  <label>Profile Image URL</label>
+                  <input
+                    type="text"
+                    name="profileImage"
+                    value={formData.profileImage}
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
 
               <div className="edit-profile-actions">
@@ -153,9 +239,13 @@ export default function EditProfilePage() {
                   Cancel
                 </button>
 
-                <button type="submit" className="edit-save-btn">
+                <button
+                  type="submit"
+                  className="edit-save-btn"
+                  disabled={saving}
+                >
                   <Save size={16} />
-                  Save Changes
+                  {saving ? "Saving..." : "Save Changes"}
                 </button>
               </div>
             </form>

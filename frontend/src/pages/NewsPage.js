@@ -1,6 +1,6 @@
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-import NewsListPage from "../components/News/NewsListPage";
+import NewsListPage from "../components/News/NewsModules";
 
 export default function NewsPage() {
   return (

@@ -7,7 +7,7 @@ import "../components/Certificates/CertificatesModule.css";
 export default function CertificatesPage() {
   return (
     <div className="cert-page-shell">
-      <Header solid />
+      <Header />
       <CertificatesModule />
       <Footer />
     </div>

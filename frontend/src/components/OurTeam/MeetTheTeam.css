@@ -1,0 +1,314 @@
+@import url("https://fonts.googleapis.com/css2?family=Imprima&family=IBM+Plex+Sans:wght@700&display=swap");
+
+:root {
+  --mtt-title-font: "IBM Plex Sans", sans-serif;
+  --mtt-body-font: "Imprima", sans-serif;
+
+  --mtt-dark: #012001;
+  --mtt-dark-2: #14532d;
+  --mtt-text: #0f172a;
+  --mtt-muted: #64748b;
+  --mtt-blue: #14532d;
+  --mtt-blue-soft: #14532d;
+  --mtt-border: #e2e8f0;
+  --mtt-white: #ffffff;
+  --mtt-slate-bg: #f8fafc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--mtt-body-font);
+}
+
+.mttPage {
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+.mttContainer {
+  width: min(1200px, 92%);
+  /* height: 200px; */
+  margin: 0 auto;
+}
+
+/* HERO */
+.mttHero {
+  position: relative;
+  background: #14532d;
+  color: #ffffff;
+  padding: 100px 0;
+  overflow: hidden;
+}
+
+.mttHeroPattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  background-image:
+    linear-gradient(to right, #ffffff 1px, transparent 1px),
+    linear-gradient(to bottom, #ffffff 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.mttHeroBlob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.12;
+}
+
+.mttHeroBlobOne {
+  width: 340px;
+  height: 340px;
+  background: #ffffff;
+  top: -80px;
+  right: -80px;
+}
+
+.mttHeroBlobTwo {
+  width: 240px;
+  height: 240px;
+  background: #ffffff;
+  bottom: -60px;
+  left: -60px;
+}
+
+.mttHeroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  height: 220px;
+}
+
+.mttHeroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 999px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.mttHeroTitle {
+  margin: 0 0 18px;
+  font-family: var(--mtt-title-font);
+  font-size: clamp(36px, 6vw, 64px);
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+.mttHeroText {
+  margin: 0 auto;
+  max-width: 720px;
+  color: #cbd5e1;
+  font-size: 19px;
+  line-height: 1.7;
+}
+
+.mttHeroDivider {
+  margin: 34px auto 0;
+  width: 96px;
+  height: 4px;
+  border-radius: 999px;
+  background: #ffffff;
+}
+
+/* DEPARTMENTS */
+.mttDepartmentSection {
+  padding: 64px 0;
+}
+
+.mttDeptLight {
+  background: #ffffff;
+}
+
+.mttDeptSubtle {
+  background: var(--mtt-slate-bg);
+}
+
+.mttDeptHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.mttDeptIconWrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: #e3ece6;
+  color: #14532d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mttDeptTitle {
+  margin: 0;
+  font-family: var(--mtt-title-font);
+  font-size: 30px;
+  color: var(--mtt-text);
+}
+
+.mttDeptDescription {
+  margin: 0 0 30px;
+  max-width: 760px;
+  color: var(--mtt-muted);
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.mttMembersGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+/* MEMBER CARD */
+.mttMemberCard {
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border: 1px solid var(--mtt-border);
+}
+
+.mttMemberCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 30px rgba(15, 23, 42, 0.12);
+}
+
+.mttMemberCard {
+  padding: 24px;
+}
+
+.mttMemberTop {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.mttMemberImage {
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 3px solid #f1f5f9;
+}
+
+.mttMemberInfo {
+  min-width: 0;
+  flex: 1;
+}
+
+.mttMemberName {
+  margin: 0 0 6px;
+  font-family: var(--mtt-title-font);
+  font-size: 22px;
+  color: var(--mtt-text);
+  line-height: 1.2;
+}
+
+.mttMemberRole {
+  margin: 0;
+  color: #14532d;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.mttMemberBio {
+  margin: 18px 0 0;
+  color: #475569;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.mttMemberContacts {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid #f1f5f9;
+  display: grid;
+  gap: 10px;
+}
+
+.mttContactLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #475569;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.mttContactLink:hover {
+  color: #1e40af;
+}
+
+.mttContactLink svg {
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+
+/* FOOTER ACCENT */
+.mttFooterAccent {
+  background: #0f172a;
+  padding: 30px 16px;
+  text-align: center;
+}
+
+.mttFooterAccent p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .mttMembersGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .mttHero {
+    padding: 64px 0;
+  }
+
+  .mttHeroText {
+    font-size: 16px;
+  }
+
+  .mttDeptTitle {
+    font-size: 24px;
+  }
+
+  .mttDeptDescription {
+    font-size: 16px;
+  }
+
+  .mttMembersGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .mttMemberTop {
+    align-items: center;
+  }
+
+  .mttMemberName {
+    font-size: 20px;
+  }
+}

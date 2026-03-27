@@ -1,85 +1,78 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+const User = require("../models/user.model");
 
-const signToken = (userId) => {
+const generateToken = (userId) => {
   return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN || "7d",
+    expiresIn: "7d",
   });
 };
 
-// POST /api/auth/register
-const register = async (req, res, next) => {
+const signup = async (req, res) => {
   try {
-    const { fullName, email, phone, password, role, municipalityId } = req.body;
+    const { name, municipality, email, password } = req.body;
 
-    if (!fullName || !email || !password) {
+    if (!name || !municipality || !email || !password) {
       return res.status(400).json({
         success: false,
-        message: "fullName, email, and password are required.",
+        message: "Please fill all required fields.",
       });
     }
 
-    // Check if email already exists
-    const existing = await User.findOne({ email: email.toLowerCase().trim() });
-    if (existing) {
-      return res.status(409).json({
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      return res.status(400).json({
         success: false,
-        message: "Email already registered.",
+        message: "User already exists with this email.",
       });
     }
 
-    // Hash password
-    const salt = await bcrypt.genSalt(10);
-    const passwordHash = await bcrypt.hash(password, salt);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create user
     const user = await User.create({
-      fullName: fullName.trim(),
-      email: email.toLowerCase().trim(),
-      phone: phone?.trim(),
-      passwordHash,
-      role: role || "citizen",
-      municipalityId: municipalityId || undefined,
+      name,
+      municipality,
+      email,
+      password: hashedPassword,
     });
 
-    const token = signToken(user._id);
-
-    // Hide passwordHash in response
-    const safeUser = {
-      _id: user._id,
-      fullName: user.fullName,
-      email: user.email,
-      phone: user.phone,
-      role: user.role,
-      municipalityId: user.municipalityId,
-      createdAt: user.createdAt,
-    };
+    const token = generateToken(user._id);
 
     return res.status(201).json({
       success: true,
-      message: "User registered successfully.",
+      message: "Account created successfully.",
       token,
-      user: safeUser,
+      user: {
+        id: user._id,
+        name: user.name,
+        municipality: user.municipality,
+        email: user.email,
+        role: user.role,
+      },
     });
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    console.error("Signup error:", error);
+    return res.status(500).json({
+      success: false,
+      message: error.message || "Server error while signing up.",
+    });
   }
 };
 
-// POST /api/auth/login
-const login = async (req, res, next) => {
+const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({
         success: false,
-        message: "email and password are required.",
+        message: "Email and password are required.",
       });
     }
 
-    const user = await User.findOne({ email: email.toLowerCase().trim() });
+    const user = await User.findOne({ email });
+
     if (!user) {
       return res.status(401).json({
         success: false,
@@ -87,35 +80,39 @@ const login = async (req, res, next) => {
       });
     }
 
-    const ok = await bcrypt.compare(password, user.passwordHash || "");
-    if (!ok) {
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordMatch) {
       return res.status(401).json({
         success: false,
         message: "Invalid email or password.",
       });
     }
 
-    const token = signToken(user._id);
-
-    const safeUser = {
-      _id: user._id,
-      fullName: user.fullName,
-      email: user.email,
-      phone: user.phone,
-      role: user.role,
-      municipalityId: user.municipalityId,
-      createdAt: user.createdAt,
-    };
+    const token = generateToken(user._id);
 
     return res.status(200).json({
       success: true,
       message: "Login successful.",
       token,
-      user: safeUser,
+      user: {
+        id: user._id,
+        name: user.name,
+        municipality: user.municipality,
+        email: user.email,
+        role: user.role,
+      },
     });
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    console.error("Login error:", error);
+    return res.status(500).json({
+      success: false,
+      message: error.message || "Server error while logging in.",
+    });
   }
 };
 
-module.exports = { register, login };
+module.exports = {
+  signup,
+  login,
+};

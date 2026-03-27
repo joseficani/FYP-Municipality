@@ -6,7 +6,7 @@ import LicensesPermits from "../components/License&Permits/LicensesPermits";
 export default function AfterLoginPage() {
   return (
     <div className="appShell">
-      <Header solid/>
+      <Header />
       <LicensesPermits />
       <Footer />
     </div>

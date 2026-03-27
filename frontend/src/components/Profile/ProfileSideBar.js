@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./ProfileComponents.css";
 import {
   Camera,
@@ -11,17 +12,66 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
+const API_BASE_URL = "http://localhost:5000/api";
+const DEFAULT_PROFILE_IMAGE =
+  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
+
 export default function ProfileSidebar() {
   const navigate = useNavigate();
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const goToEditProfile = () => {
     navigate("/edit-profile");
     window.scrollTo(0, 0);
   };
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          setProfile(null);
+          setLoading(false);
+          return;
+        }
+
+        const res = await axios.get(`${API_BASE_URL}/users/me`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setProfile(res.data.data || null);
+      } catch (error) {
+        console.error("Fetch profile error:", error);
+        console.error("Server response:", error.response?.data);
+        setProfile(null);
+
+        if (error.response?.status === 401) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("userRole");
+          localStorage.removeItem("isLoggedIn");
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  if (loading) {
+    return <div className="profile-sidebar">Loading profile...</div>;
+  }
+
+  if (!profile) {
+    return <div className="profile-sidebar">Could not load profile.</div>;
+  }
+
   return (
     <div className="profile-sidebar">
-      {/* Main Profile Card */}
       <div className="profile-main-card">
         <div className="profile-cover"></div>
 
@@ -30,8 +80,8 @@ export default function ProfileSidebar() {
             <div className="profile-avatar-wrap">
               <div className="profile-avatar">
                 <img
-                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                  alt="Sarah Jenkins"
+                  src={profile.profileImage || DEFAULT_PROFILE_IMAGE}
+                  alt={profile.name || "Profile"}
                 />
               </div>
 
@@ -47,11 +97,16 @@ export default function ProfileSidebar() {
           </div>
 
           <div className="profile-user-info">
-            <h2 className="profile-user-name">Sarah Jenkins</h2>
+            <h2 className="profile-user-name">{profile.name || "No name"}</h2>
 
             <div className="profile-location">
               <MapPin size={16} />
-              <span>Springfield Municipality • Resident since 2018</span>
+              <span>
+                {profile.municipality || "Municipality not set"}
+                {profile.residentSince
+                  ? ` • Resident since ${profile.residentSince}`
+                  : ""}
+              </span>
             </div>
           </div>
 
@@ -64,7 +119,9 @@ export default function ProfileSidebar() {
 
                 <div>
                   <p className="profile-contact-label">Email</p>
-                  <p className="profile-contact-value">sarah.j@example.com</p>
+                  <p className="profile-contact-value">
+                    {profile.email || "No email"}
+                  </p>
                 </div>
               </div>
 
@@ -85,7 +142,9 @@ export default function ProfileSidebar() {
 
                 <div>
                   <p className="profile-contact-label">Phone</p>
-                  <p className="profile-contact-value">+1 (555) 123-4567</p>
+                  <p className="profile-contact-value">
+                    {profile.phone || "No phone added"}
+                  </p>
                 </div>
               </div>
 
@@ -112,7 +171,6 @@ export default function ProfileSidebar() {
         </div>
       </div>
 
-      {/* Account Settings */}
       <div className="profile-settings-card">
         <div className="profile-settings-header">
           <h3>Account Settings</h3>

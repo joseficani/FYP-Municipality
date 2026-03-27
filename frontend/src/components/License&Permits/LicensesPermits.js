@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./LicensesPermits.css";
 import {
   MapPin,
@@ -20,54 +21,15 @@ import {
   SlidersHorizontal,
 } from "lucide-react";
 
-const PERMITS = [
-  {
-    id: "1",
-    title: "Construction Permit",
-    description:
-      "Required for new building construction, structural changes, or major additions to existing properties.",
-    icon: <Hammer className="lp-card-icon-svg" />,
-    processingTime: "10-15 business days",
-    requiredDocs: [
-      "Site Plan",
-      "Structural Drawings",
-      "Contractor License",
-      "Insurance Proof",
-    ],
-  },
-  {
-    id: "2",
-    title: "Business License",
-    description:
-      "Register a new business or renew an existing operating license for commercial activities.",
-    icon: <Briefcase className="lp-card-icon-svg" />,
-    processingTime: "5-7 business days",
-    requiredDocs: ["Business Registration", "Tax ID", "Lease Agreement"],
-  },
-  {
-    id: "3",
-    title: "Renovation Permit",
-    description:
-      "For home improvements, remodeling, or non-structural modifications to residential properties.",
-    icon: <Home className="lp-card-icon-svg" />,
-    processingTime: "3-5 business days",
-    requiredDocs: ["Project Scope", "Floor Plan", "Owner Consent"],
-  },
-  {
-    id: "4",
-    title: "Event Permit",
-    description:
-      "Authorization for public gatherings, festivals, street fairs, or block parties.",
-    icon: <Calendar className="lp-card-icon-svg" />,
-    processingTime: "15-20 business days",
-    requiredDocs: [
-      "Event Plan",
-      "Safety Protocol",
-      "Insurance Certificate",
-      "Noise Variance",
-    ],
-  },
-];
+const API_BASE_URL = "http://localhost:5000/api";
+
+const iconMap = {
+  Hammer: <Hammer className="lp-card-icon-svg" />,
+  Briefcase: <Briefcase className="lp-card-icon-svg" />,
+  Home: <Home className="lp-card-icon-svg" />,
+  Calendar: <Calendar className="lp-card-icon-svg" />,
+  FileText: <FileText className="lp-card-icon-svg" />,
+};
 
 function MapPicker({ onLocationSelect }) {
   const [isPinned, setIsPinned] = useState(false);
@@ -126,7 +88,9 @@ function PermitCard({ permit, onRequest }) {
     <div className="lp-permit-card">
       <div className="lp-permit-card-inner">
         <div className="lp-permit-card-top">
-          <div className="lp-permit-card-icon">{permit.icon}</div>
+          <div className="lp-permit-card-icon">
+            {iconMap[permit.iconName] || iconMap.FileText}
+          </div>
         </div>
 
         <h3 className="lp-permit-card-title">{permit.title}</h3>
@@ -137,20 +101,23 @@ function PermitCard({ permit, onRequest }) {
             <Clock className="lp-meta-icon" />
             <span>
               Est. Time:{" "}
-              <strong className="lp-strong">{permit.processingTime}</strong>
+              <strong className="lp-strong">
+                {permit.processingTime || "Not specified"}
+              </strong>
             </span>
           </div>
 
           <div className="lp-required-docs">
             <p className="lp-required-label">Required Documents</p>
             <ul className="lp-required-list">
-              {permit.requiredDocs.slice(0, 2).map((doc, idx) => (
+              {(permit.requiredDocs || []).slice(0, 2).map((doc, idx) => (
                 <li key={idx} className="lp-required-item">
                   <FileText className="lp-required-icon" />
                   <span>{doc}</span>
                 </li>
               ))}
-              {permit.requiredDocs.length > 2 && (
+
+              {(permit.requiredDocs || []).length > 2 && (
                 <li className="lp-required-more">
                   +{permit.requiredDocs.length - 2} more...
                 </li>
@@ -174,8 +141,10 @@ function PermitCard({ permit, onRequest }) {
   );
 }
 
-function PermitRequestForm({ permit, onCancel, onSubmit }) {
+function PermitRequestForm({ permit, onCancel, onSubmit, isSubmitting }) {
   const [currentStep, setCurrentStep] = useState("info");
+  const [isCertified, setIsCertified] = useState(false);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -195,11 +164,47 @@ function PermitRequestForm({ permit, onCancel, onSubmit }) {
 
   const currentStepIndex = steps.findIndex((s) => s.id === currentStep);
 
-  const handleNext = () => {
+  const validateCurrentStep = () => {
+    if (currentStep === "info") {
+      if (
+        !formData.firstName.trim() ||
+        !formData.lastName.trim() ||
+        !formData.email.trim() ||
+        !formData.phone.trim()
+      ) {
+        alert("Please fill all required applicant information.");
+        return false;
+      }
+    }
+
+    if (currentStep === "location") {
+      if (!formData.location) {
+        alert("Please select the project location.");
+        return false;
+      }
+    }
+
+    if (currentStep === "review") {
+      if (!isCertified) {
+        alert("Please confirm the certification checkbox before submitting.");
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  const handleNext = async () => {
+    if (!validateCurrentStep()) return;
+
     if (currentStepIndex < steps.length - 1) {
       setCurrentStep(steps[currentStepIndex + 1].id);
     } else {
-      onSubmit();
+      await onSubmit({
+        permitId: permit._id,
+        permitTitle: permit.title,
+        ...formData,
+      });
     }
   };
 
@@ -214,6 +219,7 @@ function PermitRequestForm({ permit, onCancel, onSubmit }) {
   const handleFileDrop = (e) => {
     e.preventDefault();
     const newFiles = Array.from(e.dataTransfer.files);
+
     setFormData((prev) => ({
       ...prev,
       files: [...prev.files, ...newFiles],
@@ -228,7 +234,12 @@ function PermitRequestForm({ permit, onCancel, onSubmit }) {
           <p className="lp-form-subtitle">Applying for: {permit.title}</p>
         </div>
 
-        <button onClick={onCancel} className="lp-form-close" type="button">
+        <button
+          onClick={onCancel}
+          className="lp-form-close"
+          type="button"
+          disabled={isSubmitting}
+        >
           <X className="lp-form-close-icon" />
         </button>
       </div>
@@ -251,11 +262,7 @@ function PermitRequestForm({ permit, onCancel, onSubmit }) {
               <div key={step.id} className="lp-progress-step">
                 <div
                   className={`lp-progress-circle ${
-                    isCompleted
-                      ? "completed"
-                      : isCurrent
-                        ? "current"
-                        : "pending"
+                    isCompleted ? "completed" : isCurrent ? "current" : "pending"
                   }`}
                 >
                   {isCompleted ? (
@@ -264,11 +271,7 @@ function PermitRequestForm({ permit, onCancel, onSubmit }) {
                     idx + 1
                   )}
                 </div>
-                <span
-                  className={`lp-progress-label ${
-                    isCurrent ? "current" : ""
-                  }`}
-                >
+                <span className={`lp-progress-label ${isCurrent ? "current" : ""}`}>
                   {step.label}
                 </span>
               </div>
@@ -290,7 +293,10 @@ function PermitRequestForm({ permit, onCancel, onSubmit }) {
                   placeholder="Jane"
                   value={formData.firstName}
                   onChange={(e) =>
-                    setFormData({ ...formData, firstName: e.target.value })
+                    setFormData((prev) => ({
+                      ...prev,
+                      firstName: e.target.value,
+                    }))
                   }
                 />
               </div>
@@ -302,7 +308,10 @@ function PermitRequestForm({ permit, onCancel, onSubmit }) {
                   placeholder="Doe"
                   value={formData.lastName}
                   onChange={(e) =>
-                    setFormData({ ...formData, lastName: e.target.value })
+                    setFormData((prev) => ({
+                      ...prev,
+                      lastName: e.target.value,
+                    }))
                   }
                 />
               </div>
@@ -314,7 +323,10 @@ function PermitRequestForm({ permit, onCancel, onSubmit }) {
                   placeholder="jane@example.com"
                   value={formData.email}
                   onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
+                    setFormData((prev) => ({
+                      ...prev,
+                      email: e.target.value,
+                    }))
                   }
                 />
               </div>
@@ -326,7 +338,10 @@ function PermitRequestForm({ permit, onCancel, onSubmit }) {
                   placeholder="(555) 123-4567"
                   value={formData.phone}
                   onChange={(e) =>
-                    setFormData({ ...formData, phone: e.target.value })
+                    setFormData((prev) => ({
+                      ...prev,
+                      phone: e.target.value,
+                    }))
                   }
                 />
               </div>
@@ -338,7 +353,10 @@ function PermitRequestForm({ permit, onCancel, onSubmit }) {
                   placeholder="123 Main St, Apt 4B"
                   value={formData.address}
                   onChange={(e) =>
-                    setFormData({ ...formData, address: e.target.value })
+                    setFormData((prev) => ({
+                      ...prev,
+                      address: e.target.value,
+                    }))
                   }
                 />
               </div>
@@ -351,7 +369,7 @@ function PermitRequestForm({ permit, onCancel, onSubmit }) {
             <h3 className="lp-step-title">Required Documents</h3>
             <p className="lp-step-text">
               Please upload the following documents:{" "}
-              {permit.requiredDocs.join(", ")}.
+              {(permit.requiredDocs || []).join(", ")}.
             </p>
 
             <div
@@ -371,6 +389,7 @@ function PermitRequestForm({ permit, onCancel, onSubmit }) {
                 id="lp-file-upload"
                 className="lp-hidden-file"
                 multiple
+                accept=".pdf,.jpg,.jpeg,.png"
                 onChange={(e) => {
                   if (e.target.files) {
                     setFormData((prev) => ({
@@ -455,6 +474,7 @@ function PermitRequestForm({ permit, onCancel, onSubmit }) {
                   </p>
                   <p className="lp-review-sub">{formData.email}</p>
                   <p className="lp-review-sub">{formData.phone}</p>
+                  <p className="lp-review-sub">{formData.address}</p>
                 </div>
 
                 <div>
@@ -480,11 +500,16 @@ function PermitRequestForm({ permit, onCancel, onSubmit }) {
             </div>
 
             <div className="lp-certify-box">
-              <input type="checkbox" className="lp-certify-check" />
+              <input
+                type="checkbox"
+                className="lp-certify-check"
+                checked={isCertified}
+                onChange={(e) => setIsCertified(e.target.checked)}
+              />
               <p>
-                I certify that all information provided is true and correct to
-                the best of my knowledge. I understand that false statements may
-                result in rejection of this application.
+                I certify that all information provided is true and correct to the
+                best of my knowledge. I understand that false statements may result
+                in rejection of this application.
               </p>
             </div>
           </div>
@@ -492,14 +517,29 @@ function PermitRequestForm({ permit, onCancel, onSubmit }) {
       </div>
 
       <div className="lp-form-footer">
-        <button onClick={handleBack} className="lp-form-back-btn" type="button">
+        <button
+          onClick={handleBack}
+          className="lp-form-back-btn"
+          type="button"
+          disabled={isSubmitting}
+        >
           <ChevronLeft className="lp-footer-icon" />
           {currentStep === "info" ? "Cancel" : "Back"}
         </button>
 
-        <button onClick={handleNext} className="lp-form-next-btn" type="button">
-          {currentStep === "review" ? "Submit Application" : "Continue"}
-          {currentStep !== "review" && (
+        <button
+          onClick={handleNext}
+          className="lp-form-next-btn"
+          type="button"
+          disabled={isSubmitting}
+        >
+          {isSubmitting
+            ? "Submitting..."
+            : currentStep === "review"
+            ? "Submit Application"
+            : "Continue"}
+
+          {!isSubmitting && currentStep !== "review" && (
             <ChevronRight className="lp-footer-icon" />
           )}
         </button>
@@ -509,31 +549,165 @@ function PermitRequestForm({ permit, onCancel, onSubmit }) {
 }
 
 export default function LicensesPermitsPage() {
+  const navigate = useNavigate();
+
   const [selectedPermit, setSelectedPermit] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
+  const [permits, setPermits] = useState([]);
+  const [loadingPermits, setLoadingPermits] = useState(true);
+
+  const [recentApplications, setRecentApplications] = useState([]);
+  const [loadingRecent, setLoadingRecent] = useState(true);
+
+  useEffect(() => {
+    const fetchPermits = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/permits-catalog`);
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.message || "Failed to fetch permits.");
+        }
+
+        setPermits(result.data || []);
+      } catch (error) {
+        console.error("Fetch permits error:", error);
+      } finally {
+        setLoadingPermits(false);
+      }
+    };
+
+    fetchPermits();
+  }, []);
+
+  const fetchMyPermits = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        setRecentApplications([]);
+        setLoadingRecent(false);
+        return;
+      }
+
+      const response = await fetch(`${API_BASE_URL}/permits/my`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to fetch permit requests.");
+      }
+
+      setRecentApplications(result.data || []);
+    } catch (error) {
+      console.error("Fetch my permits error:", error);
+      setRecentApplications([]);
+    } finally {
+      setLoadingRecent(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchMyPermits();
+  }, []);
+
   const filteredPermits = useMemo(() => {
-    return PERMITS.filter(
+    return permits.filter(
       (p) =>
         p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         p.description.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  }, [searchQuery]);
+  }, [permits, searchQuery]);
 
   const handleRequest = (permit) => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("Please login first.");
+      navigate("/");
+      return;
+    }
+
     setSelectedPermit(permit);
     setIsSuccess(false);
   };
 
-  const handleSubmit = () => {
-    setTimeout(() => {
+  const handleSubmit = async (formData) => {
+    try {
+      if (isSubmitting) return;
+
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        alert("Please login first.");
+        navigate("/");
+        return;
+      }
+
+      setIsSubmitting(true);
+
+      const payload = new FormData();
+      payload.append("permitId", formData.permitId);
+      payload.append("firstName", formData.firstName);
+      payload.append("lastName", formData.lastName);
+      payload.append("email", formData.email);
+      payload.append("phone", formData.phone);
+      payload.append("address", formData.address || "");
+
+      if (formData.location) {
+        payload.append("locationLat", formData.location.lat);
+        payload.append("locationLng", formData.location.lng);
+        payload.append("locationAddress", formData.location.address || "");
+      }
+
+      formData.files.forEach((file) => {
+        payload.append("documents", file);
+      });
+
+      const response = await fetch(`${API_BASE_URL}/permits`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: payload,
+      });
+
+      let result = {};
+      try {
+        result = await response.json();
+      } catch {
+        result = {};
+      }
+
+      if (response.status === 401) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userRole");
+        localStorage.removeItem("isLoggedIn");
+        alert("Your session has expired. Please login again.");
+        navigate("/");
+        return;
+      }
+
+      if (!response.ok) {
+        throw new Error(result.message || `Server error: ${response.status}`);
+      }
+
+      await fetchMyPermits();
       setIsSuccess(true);
-      setTimeout(() => {
-        setSelectedPermit(null);
-        setIsSuccess(false);
-      }, 3000);
-    }, 1000);
+    } catch (error) {
+      console.error("Submit permit request error:", error);
+      alert(error.message || "Something went wrong while submitting.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -544,6 +718,7 @@ export default function LicensesPermitsPage() {
             permit={selectedPermit}
             onCancel={() => setSelectedPermit(null)}
             onSubmit={handleSubmit}
+            isSubmitting={isSubmitting}
           />
         </div>
       )}
@@ -569,8 +744,8 @@ export default function LicensesPermitsPage() {
 
             <h2 className="lp-success-title">Application Submitted!</h2>
             <p className="lp-success-text">
-              Your request for a {selectedPermit?.title} has been received. You
-              can track the status in "My Applications".
+              Your request for a {selectedPermit?.title} has been received. You can
+              track the status in "My Applications".
             </p>
 
             <button
@@ -587,16 +762,28 @@ export default function LicensesPermitsPage() {
         </div>
       )}
 
-      <main className="lp-main">
-        <div className="lp-page-header">
-          <h1 className="lp-page-title">Licenses &amp; Permits</h1>
-          <p className="lp-page-subtitle">
-            Browse available permits, submit applications, and track your
-            approval status all in one place.
+      <div className="lp-hero-section">
+        <div className="lp-hero-overlay"></div>
+
+        <div className="lp-hero-content">
+          <div className="lp-breadcrumb">
+            <span>Home</span>
+            <span>/</span>
+            <span>Services</span>
+            <span>/</span>
+            <span className="lp-active-page">Licenses &amp; Permits</span>
+          </div>
+
+          <h1>Licenses &amp; Permits</h1>
+          <p>
+            Browse available permits, submit applications, and track your approval
+            status all in one place.
           </p>
         </div>
+      </div>
 
-        <div className="lp-search-row">
+      <main className="lp-main">
+        <div className="lp-search-hero-bar">
           <div className="lp-search-box">
             <div className="lp-search-icon-wrap">
               <Search className="lp-search-icon" />
@@ -619,11 +806,13 @@ export default function LicensesPermitsPage() {
         <div className="lp-section">
           <h2 className="lp-section-title">Available Permits</h2>
 
-          {filteredPermits.length > 0 ? (
+          {loadingPermits ? (
+            <p>Loading permits...</p>
+          ) : filteredPermits.length > 0 ? (
             <div className="lp-permits-grid">
               {filteredPermits.map((permit) => (
                 <PermitCard
-                  key={permit.id}
+                  key={permit._id}
                   permit={permit}
                   onRequest={handleRequest}
                 />
@@ -659,35 +848,55 @@ export default function LicensesPermitsPage() {
               </thead>
 
               <tbody>
-                <tr>
-                  <td>#APP-2023-892</td>
-                  <td>Renovation Permit</td>
-                  <td>Oct 24, 2023</td>
-                  <td>
-                    <span className="lp-status-badge pending">
-                      Pending Review
-                    </span>
-                  </td>
-                  <td className="lp-td-right">
-                    <button className="lp-table-link" type="button">
-                      View Details
-                    </button>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>#APP-2023-441</td>
-                  <td>Event Permit</td>
-                  <td>Sep 12, 2023</td>
-                  <td>
-                    <span className="lp-status-badge approved">Approved</span>
-                  </td>
-                  <td className="lp-td-right">
-                    <button className="lp-table-link" type="button">
-                      Download Permit
-                    </button>
-                  </td>
-                </tr>
+                {loadingRecent ? (
+                  <tr>
+                    <td colSpan="5" style={{ textAlign: "center", padding: "20px" }}>
+                      Loading applications...
+                    </td>
+                  </tr>
+                ) : recentApplications.length === 0 ? (
+                  <tr>
+                    <td colSpan="5" style={{ textAlign: "center", padding: "20px" }}>
+                      No applications submitted yet.
+                    </td>
+                  </tr>
+                ) : (
+                  recentApplications.map((item) => (
+                    <tr key={item._id}>
+                      <td>{item._id}</td>
+                      <td>{item.permitTitle || item.permitId?.title || "Permit Request"}</td>
+                      <td>
+                        {item.createdAt
+                          ? new Date(item.createdAt).toLocaleDateString()
+                          : "N/A"}
+                      </td>
+                      <td>
+                        <span
+                          className={`lp-status-badge ${
+                            item.status === "approved"
+                              ? "approved"
+                              : item.status === "rejected"
+                              ? "rejected"
+                              : "pending"
+                          }`}
+                        >
+                          {item.status === "in_review"
+                            ? "In Review"
+                            : item.status === "approved"
+                            ? "Approved"
+                            : item.status === "rejected"
+                            ? "Rejected"
+                            : "Pending"}
+                        </span>
+                      </td>
+                      <td className="lp-td-right">
+                        <button className="lp-table-link" type="button">
+                          View
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
